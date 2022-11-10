@@ -1,4 +1,7 @@
+import 'package:billingapp/provider/customerProvider.dart';
+import 'package:billingapp/provider/productprovider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'screens/homepage/homepage.dart';
 
@@ -12,13 +15,22 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Matrix Billing',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ProductProvider>(
+          create: (_) => ProductProvider(),
         ),
-        home: const HomePage());
+        ChangeNotifierProvider<CustomerProvider>(
+            create: (_) => CustomerProvider())
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Matrix Billing',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          home: const HomePage()),
+    );
     //const CustomerList());
   }
 }
