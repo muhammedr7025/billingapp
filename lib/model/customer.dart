@@ -1,6 +1,7 @@
 import 'package:billingapp/model/sales.dart';
+import 'package:flutter/material.dart';
 
-class Customer {
+class Customer with ChangeNotifier {
   String? custName;
   int? mobno;
   double? credit;

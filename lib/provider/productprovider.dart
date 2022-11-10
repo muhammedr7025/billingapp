@@ -8,6 +8,10 @@ class ProductProvider with ChangeNotifier {
     return [..._savedProduct];
   }
 
+  int get productLength {
+    return _savedProduct.length;
+  }
+
   Future<void> saveProduct(product) async {
     _savedProduct.add(product);
   }
