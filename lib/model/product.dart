@@ -1,4 +1,6 @@
-class Product {
+import 'package:flutter/material.dart';
+
+class Product with ChangeNotifier {
   String? productName;
   String? productCode;
   String? stockDate;
