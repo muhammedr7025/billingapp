@@ -98,7 +98,6 @@ class _CustomerListState extends State<CustomerList> {
             child: Align(
               alignment: Alignment.center,
               child: ElevatedButton(
-                style: ButtonStyle(),
                 onPressed: (() {
                   showAddNoteDialog(
                     context,
