@@ -12,7 +12,12 @@ class ProductProvider with ChangeNotifier {
     return _savedProduct.length;
   }
 
-  Future<void> saveProduct(product) async {
-    _savedProduct.add(product);
+  Future<void> saveProduct(Product product) async {
+    _savedProduct.add(Product(
+        productName: product.productName,
+        productCode: product.productCode,
+        price: product.price,
+        stockCount: product.stockCount,
+        stockDate: product.stockDate));
   }
 }
