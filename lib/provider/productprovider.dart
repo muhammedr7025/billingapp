@@ -8,5 +8,7 @@ class ProductProvider with ChangeNotifier {
     return [..._savedProduct];
   }
 
-  Future<void> saveProduct(product) {}
+  Future<void> saveProduct(product) async {
+    _savedProduct.add(product);
+  }
 }
