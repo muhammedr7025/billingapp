@@ -1,21 +1,16 @@
+import 'package:billingapp/model/product.dart';
 import 'package:flutter/material.dart';
 
-import '../../../model/customer.dart';
-
-class CustomerItem extends StatelessWidget {
-  final Customer customer;
-
-  const CustomerItem({
-    Key? key,
-    required this.customer,
-  }) : super(key: key);
+class StockItem extends StatelessWidget {
+  final Product product;
+  const StockItem({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: Container(
-        height: 60,
+        height: 80,
         decoration: BoxDecoration(
           color: Colors.grey[200],
           borderRadius: BorderRadius.circular(10),
@@ -40,39 +35,63 @@ class CustomerItem extends StatelessWidget {
                 Row(
                   children: [
                     const Text(
-                      'Customer name: ',
+                      'Product name: ',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(customer.custName!)
+                    Text(product.productName!)
                   ],
                 ),
                 Row(
                   children: [
                     const Text(
-                      'Phone no: ',
+                      'Product code: ',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(customer.mobno!.toString())
+                    Text(product.productCode.toString())
                   ],
                 ),
                 Row(
                   children: [
                     const Text(
-                      'Credit: ₹',
+                      'No of stocks: ',
                       style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    Text(customer.credit!.toString())
+                    Text(product.stockCount.toString())
                   ],
-                )
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      'Price: ₹',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(product.price.toString())
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      'Date: ',
+                      style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    Text(product.stockDate.toString())
+                  ],
+                ),
               ],
             ),
           ],

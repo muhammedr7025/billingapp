@@ -98,6 +98,8 @@ class _CustomerListState extends State<CustomerList> {
             child: Align(
               alignment: Alignment.center,
               child: ElevatedButton(
+                style:
+                    ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
                 onPressed: (() {
                   showAddNoteDialog(
                     context,
@@ -124,12 +126,11 @@ class _CustomerListState extends State<CustomerList> {
       builder: (context) {
         final provider = Provider.of<CustomerProvider>(context);
         final TextEditingController name = TextEditingController();
-
         final TextEditingController phoneNo = TextEditingController();
-
         final TextEditingController credit = TextEditingController();
 
         return AlertDialog(
+          backgroundColor: const Color.fromARGB(255, 210, 207, 207),
           title: const Center(child: Text("Add Stock")),
           content: SingleChildScrollView(
             child: SizedBox(
@@ -153,7 +154,7 @@ class _CustomerListState extends State<CustomerList> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide:
-                            const BorderSide(width: 1, color: Colors.grey),
+                            const BorderSide(width: 1, color: Colors.black),
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                       hintText: 'Customer name',
@@ -178,7 +179,7 @@ class _CustomerListState extends State<CustomerList> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide:
-                            const BorderSide(width: 1, color: Colors.grey),
+                            const BorderSide(width: 1, color: Colors.black),
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                       hintText: 'Phone number',
@@ -203,7 +204,7 @@ class _CustomerListState extends State<CustomerList> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderSide:
-                            const BorderSide(width: 1, color: Colors.grey),
+                            const BorderSide(width: 1, color: Colors.black),
                         borderRadius: BorderRadius.circular(25.0),
                       ),
                       hintText: 'Credit amount',
@@ -216,6 +217,8 @@ class _CustomerListState extends State<CustomerList> {
           actions: [
             Center(
               child: ElevatedButton(
+                style:
+                    ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
                 child: const Text("Submit"),
                 onPressed: () {
                   Customer cust = Customer(
