@@ -1,7 +1,8 @@
-import 'package:billingapp/coustomerpage/customersingleview.dart';
-import 'package:billingapp/model/customer.dart';
-import 'package:billingapp/model/customersavingfun.dart';
 import 'package:flutter/material.dart';
+
+import '../../model/customer.dart';
+import '../../model/customersavingfun.dart';
+import 'customersingleview.dart';
 
 class CoustomerHomePage extends StatefulWidget {
   const CoustomerHomePage({super.key});

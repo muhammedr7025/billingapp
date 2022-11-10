@@ -1,9 +1,9 @@
-import 'package:billingapp/coustomerpage/coustomerhomepage.dart';
-import 'package:billingapp/salespage/saleshomepage.dart';
-import 'package:billingapp/stockpages/stockhome.dart';
-
-import 'package:billingapp/widgets/optionbutton.dart';
 import 'package:flutter/material.dart';
+
+import '../coustomerpage/coustomerhomepage.dart';
+import '../salespage/saleshomepage.dart';
+import '../stockpages/stockhome.dart';
+import 'widgets/optionbutton.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});

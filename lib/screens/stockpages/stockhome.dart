@@ -1,6 +1,7 @@
-import 'package:billingapp/model/product.dart';
-import 'package:billingapp/model/productsavingfun.dart';
 import 'package:flutter/material.dart';
+
+import '../../model/product.dart';
+import '../../model/productsavingfun.dart';
 
 class StockHome extends StatefulWidget {
   const StockHome({super.key});
