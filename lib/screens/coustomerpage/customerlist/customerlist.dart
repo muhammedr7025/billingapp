@@ -1,42 +1,120 @@
-import 'package:billingapp/provider/customerProvider.dart';
-import 'package:billingapp/screens/coustomerpage/customerlist/customerlist.dart';
+import 'package:billingapp/model/customer.dart';
+import 'package:billingapp/screens/coustomerpage/customerlist/emptyview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:searchable_listview/searchable_listview.dart';
+import '../../../provider/customerProvider.dart';
+import 'customeritem.dart';
 
-import '../../model/customer.dart';
-
-class CoustomerHomePage extends StatefulWidget {
-  const CoustomerHomePage({super.key});
+class CustomerList extends StatefulWidget {
+  const CustomerList({Key? key}) : super(key: key);
 
   @override
-  State<CoustomerHomePage> createState() => _CoustomerHomePageState();
+  State<CustomerList> createState() => _CustomerListState();
 }
 
-class _CoustomerHomePageState extends State<CoustomerHomePage> {
-  final TextEditingController name = TextEditingController();
-
-  final TextEditingController phoneNo = TextEditingController();
-
-  final TextEditingController credit = TextEditingController();
-
+class _CustomerListState extends State<CustomerList> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.grey,
-        appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 45, 45, 45),
-          title: const Text('Coustomers'),
-          actions: [
-            IconButton(
-                onPressed: () {
+    final provider = Provider.of<CustomerProvider>(context);
+    final datas = provider.savedCustomerList;
+
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        children: [
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.all(15),
+              child: SearchableList<Customer>(
+                style: const TextStyle(fontSize: 15),
+                onPaginate: () async {
+                  await Future.delayed(const Duration(milliseconds: 100));
+                  setState(() {});
+                },
+                builder: (Customer customer) =>
+                    CustomerItem(customer: customer),
+                loadingWidget: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    CircularProgressIndicator(),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text('Loading customers...')
+                  ],
+                ),
+                errorWidget: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: const [
+                    Icon(
+                      Icons.error,
+                      color: Colors.red,
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text('Error while fetching customers')
+                  ],
+                ),
+                asyncListCallback: () async {
+                  await Future.delayed(
+                    const Duration(
+                      milliseconds: 100,
+                    ),
+                  );
+                  return datas;
+                },
+                asyncListFilter: (q, list) {
+                  return list
+                      .where((element) =>
+                          element.custName!.toLowerCase().contains(q))
+                      .toList();
+                },
+                emptyWidget: const EmptyView(),
+                onRefresh: () async {},
+                onItemSelected: (datas) {},
+                inputDecoration: InputDecoration(
+                  suffixIcon: const Icon(Icons.search),
+                  suffixIconColor: Colors.blueGrey,
+                  border: OutlineInputBorder(
+                      borderSide: const BorderSide(width: 3),
+                      borderRadius: BorderRadius.circular(20)),
+                  labelText: "Search Customer",
+                  fillColor: Colors.white,
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: const BorderSide(
+                      color: Colors.blueGrey,
+                      width: 1.0,
+                    ),
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 15.0),
+            child: Align(
+              alignment: Alignment.center,
+              child: ElevatedButton(
+                style: ButtonStyle(),
+                onPressed: (() {
                   showAddNoteDialog(
                     context,
                   );
-                },
-                icon: const Icon(Icons.add))
-          ],
-        ),
-        body: const CustomerList());
+                }),
+                child: const Text(
+                  'Add Customer',
+                  style: TextStyle(
+                      color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+          )
+        ],
+      ),
+    );
   }
 
   showAddNoteDialog(
@@ -46,6 +124,12 @@ class _CoustomerHomePageState extends State<CoustomerHomePage> {
       context: context,
       builder: (context) {
         final provider = Provider.of<CustomerProvider>(context);
+        final TextEditingController name = TextEditingController();
+
+        final TextEditingController phoneNo = TextEditingController();
+
+        final TextEditingController credit = TextEditingController();
+
         return AlertDialog(
           title: const Center(child: Text("Add Stock")),
           content: SingleChildScrollView(

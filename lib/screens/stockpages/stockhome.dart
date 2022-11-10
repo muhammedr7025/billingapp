@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../../model/product.dart';
-import '../../model/productsavingfun.dart';
 
 class StockHome extends StatefulWidget {
   const StockHome({super.key});
@@ -20,11 +19,10 @@ class _StockHomeState extends State<StockHome> {
   final TextEditingController stock = TextEditingController();
 
   final TextEditingController price = TextEditingController();
-  int totalCount = savedProduct.length;
+
   @override
   void initState() {
     super.initState();
-    totalCount = savedProduct.length;
   }
 
   @override
@@ -42,7 +40,6 @@ class _StockHomeState extends State<StockHome> {
       ),
       body: ListView.builder(
         padding: const EdgeInsets.only(left: 8.0, right: 8.0, top: 5.0),
-        itemCount: totalCount,
         itemBuilder: (BuildContext context, int index) {
           int lead = index + 1;
           return ListTile(
@@ -50,8 +47,6 @@ class _StockHomeState extends State<StockHome> {
                 borderRadius: BorderRadius.all(Radius.circular(50))),
             leading: Text(lead.toString()),
             tileColor: Colors.white,
-            title: Text(savedProduct[index].productName.toString()),
-            trailing: Text(savedProduct[index].price.toString()),
           );
         },
       ),
@@ -206,16 +201,14 @@ class _StockHomeState extends State<StockHome> {
                         stockDate: date.text,
                         stockCount: int.parse(stock.text),
                         price: double.parse(price.text));
-                    productSave(toSave);
+
                     name.clear();
                     code.clear();
                     date.clear();
                     stock.clear();
                     price.clear();
                     Navigator.of(context).pop();
-                    setState(() {
-                      totalCount = savedProduct.length;
-                    });
+                    setState(() {});
                   },
                 ),
               ),
