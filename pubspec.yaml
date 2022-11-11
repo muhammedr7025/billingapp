@@ -39,6 +39,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   searchable_listview: ^2.1.1
   provider: ^6.0.4
+  cart_stepper: ^3.0.2
 
 dev_dependencies:
   flutter_test:

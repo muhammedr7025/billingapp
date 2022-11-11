@@ -1,8 +1,6 @@
 import 'package:billingapp/screens/stockpages/stocklist/stocklist.dart';
 import 'package:flutter/material.dart';
 
-import '../../model/product.dart';
-
 class StockHome extends StatefulWidget {
   const StockHome({super.key});
 

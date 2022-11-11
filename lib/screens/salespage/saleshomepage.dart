@@ -1,3 +1,4 @@
+import 'package:billingapp/screens/salespage/saleslist/saleslist.dart';
 import 'package:flutter/material.dart';
 
 class SalesHomePage extends StatelessWidget {
@@ -12,13 +13,6 @@ class SalesHomePage extends StatelessWidget {
           title: const Text('Sales'),
           actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))],
         ),
-        body: Container(
-          color: Colors.green,
-          child: Column(children: const [
-            ListTile(
-              title: Text('Product Name'),
-            )
-          ]),
-        ));
+        body: const SalesList());
   }
 }

@@ -1,5 +1,6 @@
 import 'package:billingapp/provider/customerProvider.dart';
 import 'package:billingapp/provider/productprovider.dart';
+import 'package:billingapp/provider/salesprovider.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -12,7 +13,6 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -21,7 +21,10 @@ class MyApp extends StatelessWidget {
           create: (_) => ProductProvider(),
         ),
         ChangeNotifierProvider<CustomerProvider>(
-            create: (_) => CustomerProvider())
+            create: (_) => CustomerProvider()),
+        ChangeNotifierProvider<SalesProvider>(
+          create: (_) => SalesProvider(),
+        ),
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
@@ -31,6 +34,5 @@ class MyApp extends StatelessWidget {
           ),
           home: const HomePage()),
     );
-    //const CustomerList());
   }
 }
