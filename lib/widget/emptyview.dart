@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
 class EmptyView extends StatelessWidget {
-  const EmptyView({Key? key}) : super(key: key);
+  final String? name;
+  const EmptyView({Key? key, this.name}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
-      children: const [
-        Icon(
+      children: [
+        const Icon(
           Icons.error,
           color: Colors.red,
         ),
-        Text('no customer'),
+        Text('no $name'),
       ],
     );
   }

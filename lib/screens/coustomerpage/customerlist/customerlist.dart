@@ -1,9 +1,9 @@
-import 'package:billingapp/model/customer.dart';
-import 'package:billingapp/screens/coustomerpage/customerlist/emptyview.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchable_listview/searchable_listview.dart';
+import '../../../model/customer.dart';
 import '../../../provider/customerProvider.dart';
+import '../../../widget/emptyview.dart';
 import 'customeritem.dart';
 
 class CustomerList extends StatefulWidget {
@@ -71,7 +71,9 @@ class _CustomerListState extends State<CustomerList> {
                           element.custName!.toLowerCase().contains(q))
                       .toList();
                 },
-                emptyWidget: const EmptyView(),
+                emptyWidget: const EmptyView(
+                  name: 'Customer',
+                ),
                 onRefresh: () async {},
                 onItemSelected: (datas) {},
                 inputDecoration: InputDecoration(

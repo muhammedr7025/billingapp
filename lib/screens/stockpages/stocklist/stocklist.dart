@@ -1,6 +1,6 @@
 import 'package:billingapp/model/product.dart';
 import 'package:billingapp/provider/productprovider.dart';
-import 'package:billingapp/screens/stockpages/stocklist/emptyview.dart';
+import 'package:billingapp/widget/emptyview.dart';
 import 'package:billingapp/screens/stockpages/stocklist/stockitem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -70,7 +70,9 @@ class _StockListState extends State<StockList> {
                           element.productName!.toLowerCase().contains(q))
                       .toList();
                 },
-                emptyWidget: const EmptyView(),
+                emptyWidget: const EmptyView(
+                  name: 'Product',
+                ),
                 onRefresh: () async {},
                 onItemSelected: (datas) {},
                 inputDecoration: InputDecoration(
