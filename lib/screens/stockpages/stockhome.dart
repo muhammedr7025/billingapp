@@ -22,6 +22,8 @@ class _StockHomeState extends State<StockHome> {
           backgroundColor: const Color.fromARGB(255, 45, 45, 45),
           title: const Text('Stocks'),
         ),
-        body: const StockList());
+        body: const StockList(
+          option: 'product',
+        ));
   }
 }

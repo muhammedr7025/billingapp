@@ -11,7 +11,6 @@ class SalesHomePage extends StatelessWidget {
         appBar: AppBar(
           backgroundColor: const Color.fromARGB(255, 45, 45, 45),
           title: const Text('Sales'),
-          actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.add))],
         ),
         body: const SalesList());
   }

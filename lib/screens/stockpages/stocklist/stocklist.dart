@@ -1,13 +1,16 @@
-import 'package:billingapp/model/product.dart';
-import 'package:billingapp/provider/productprovider.dart';
-import 'package:billingapp/widget/emptyview.dart';
-import 'package:billingapp/screens/stockpages/stocklist/stockitem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchable_listview/searchable_listview.dart';
 
+import '../../../model/product.dart';
+import '../../../provider/productprovider.dart';
+import '../../../widget/emptyview.dart';
+import '../../salespage/cartadding.dart';
+import 'stockitem.dart';
+
 class StockList extends StatefulWidget {
-  const StockList({super.key});
+  final String? option;
+  const StockList({super.key, this.option});
 
   @override
   State<StockList> createState() => _StockListState();
@@ -18,7 +21,7 @@ class _StockListState extends State<StockList> {
   Widget build(BuildContext context) {
     final provider = Provider.of<ProductProvider>(context);
     final datas = provider.savedProductList;
-
+    final String? option = widget.option;
     return SizedBox(
       width: double.infinity,
       child: Column(
@@ -32,7 +35,9 @@ class _StockListState extends State<StockList> {
                   await Future.delayed(const Duration(milliseconds: 100));
                   setState(() {});
                 },
-                builder: (Product product) => StockItem(product: product),
+                builder: (Product product) => option == 'product'
+                    ? StockItem(product: product)
+                    : CartAdding(),
                 loadingWidget: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [

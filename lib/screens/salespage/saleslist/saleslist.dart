@@ -1,5 +1,6 @@
 import 'package:billingapp/model/sales.dart';
 import 'package:billingapp/provider/salesprovider.dart';
+import 'package:billingapp/screens/salespage/newsale.dart';
 import 'package:billingapp/screens/salespage/saleslist/salessitem.dart';
 import 'package:flutter/material.dart';
 
@@ -9,7 +10,9 @@ import 'package:searchable_listview/searchable_listview.dart';
 import '../../../widget/emptyview.dart';
 
 class SalesList extends StatefulWidget {
-  const SalesList({super.key});
+  const SalesList({
+    super.key,
+  });
 
   @override
   State<SalesList> createState() => _SalesListState();
@@ -20,7 +23,6 @@ class _SalesListState extends State<SalesList> {
   Widget build(BuildContext context) {
     final provider = Provider.of<SalesProvider>(context);
     final datas = provider.savedBillList;
-
     return SizedBox(
       width: double.infinity,
       child: Column(
@@ -105,7 +107,10 @@ class _SalesListState extends State<SalesList> {
               child: ElevatedButton(
                 style:
                     ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
-                onPressed: (() {}),
+                onPressed: (() {
+                  Navigator.of(context).push(
+                      MaterialPageRoute(builder: ((context) => NewSale())));
+                }),
                 child: const Text(
                   'New Sale',
                   style: TextStyle(

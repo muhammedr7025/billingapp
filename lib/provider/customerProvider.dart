@@ -11,10 +11,11 @@ class CustomerProvider with ChangeNotifier {
   }
 
   Future<void> saveCustomer(Customer customer) async {
-    _savedCustomer.add(Customer(
+    final newCustomer = Customer(
         custName: customer.custName,
         credit: customer.credit,
-        mobno: customer.mobno));
+        mobno: customer.mobno);
+    _savedCustomer.add(newCustomer);
     notifyListeners();
   }
 }
