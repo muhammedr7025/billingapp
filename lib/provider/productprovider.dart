@@ -3,7 +3,14 @@ import 'package:flutter/material.dart';
 import '../model/product.dart';
 
 class ProductProvider with ChangeNotifier {
-  final List<Product> _savedProduct = [];
+  final List<Product> _savedProduct = [
+    Product(
+        productName: 'poco x2',
+        productCode: 'pcx2',
+        price: 22000,
+        stockDate: '22/5/2002',
+        stockCount: 7)
+  ];
   List<Product> get savedProductList {
     return [..._savedProduct];
   }

@@ -108,8 +108,8 @@ class _SalesListState extends State<SalesList> {
                 style:
                     ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
                 onPressed: (() {
-                  Navigator.of(context).push(
-                      MaterialPageRoute(builder: ((context) => NewSale())));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: ((context) => const NewSale())));
                 }),
                 child: const Text(
                   'New Sale',

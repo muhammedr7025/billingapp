@@ -1,3 +1,4 @@
+import 'package:billingapp/screens/salespage/newsaleitem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchable_listview/searchable_listview.dart';
@@ -5,7 +6,6 @@ import 'package:searchable_listview/searchable_listview.dart';
 import '../../../model/product.dart';
 import '../../../provider/productprovider.dart';
 import '../../../widget/emptyview.dart';
-import '../../salespage/cartadding.dart';
 import 'stockitem.dart';
 
 class StockList extends StatefulWidget {
@@ -22,7 +22,8 @@ class _StockListState extends State<StockList> {
     final provider = Provider.of<ProductProvider>(context);
     final datas = provider.savedProductList;
     final String? option = widget.option;
-    return SizedBox(
+    return Container(
+      color: Colors.grey,
       width: double.infinity,
       child: Column(
         children: [
@@ -37,7 +38,7 @@ class _StockListState extends State<StockList> {
                 },
                 builder: (Product product) => option == 'product'
                     ? StockItem(product: product)
-                    : CartAdding(),
+                    : NewSaleItem(product: product),
                 loadingWidget: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
@@ -135,6 +136,7 @@ class _StockListState extends State<StockList> {
 
           final TextEditingController price = TextEditingController();
           return AlertDialog(
+            backgroundColor: const Color.fromARGB(255, 210, 207, 207),
             title: const Center(child: Text("Add Stock")),
             content: SingleChildScrollView(
               child: SizedBox(
@@ -158,7 +160,7 @@ class _StockListState extends State<StockList> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                              const BorderSide(width: 1, color: Colors.grey),
+                              const BorderSide(width: 1, color: Colors.black),
                           borderRadius: BorderRadius.circular(25.0),
                         ),
                         hintText: 'Product name',
@@ -183,7 +185,7 @@ class _StockListState extends State<StockList> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                              const BorderSide(width: 1, color: Colors.grey),
+                              const BorderSide(width: 1, color: Colors.black),
                           borderRadius: BorderRadius.circular(25.0),
                         ),
                         hintText: 'Product code',
@@ -208,7 +210,7 @@ class _StockListState extends State<StockList> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                              const BorderSide(width: 1, color: Colors.grey),
+                              const BorderSide(width: 1, color: Colors.black),
                           borderRadius: BorderRadius.circular(25.0),
                         ),
                         hintText: 'Date',
@@ -233,7 +235,7 @@ class _StockListState extends State<StockList> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                              const BorderSide(width: 1, color: Colors.grey),
+                              const BorderSide(width: 1, color: Colors.black),
                           borderRadius: BorderRadius.circular(25.0),
                         ),
                         hintText: 'No of stocks',
@@ -258,12 +260,12 @@ class _StockListState extends State<StockList> {
                         ),
                         enabledBorder: OutlineInputBorder(
                           borderSide:
-                              const BorderSide(width: 1, color: Colors.grey),
+                              const BorderSide(width: 1, color: Colors.black),
                           borderRadius: BorderRadius.circular(25.0),
                         ),
                         hintText: 'Price',
                       ),
-                    )
+                    ),
                   ],
                 ),
               ),
@@ -271,6 +273,8 @@ class _StockListState extends State<StockList> {
             actions: [
               Center(
                 child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.blueGrey),
                   child: const Text("Submit"),
                   onPressed: () {
                     Product toSave = Product(

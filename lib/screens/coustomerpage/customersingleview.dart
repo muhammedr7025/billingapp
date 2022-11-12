@@ -1,10 +1,10 @@
+import 'package:billingapp/model/customer.dart';
 import 'package:flutter/material.dart';
 
 class CustomerSingleView extends StatelessWidget {
-  final String? name;
-  final int? credit;
-  final int? phnNo;
-  const CustomerSingleView({super.key, this.name, this.credit, this.phnNo});
+  final Customer customer;
+
+  const CustomerSingleView({super.key, required this.customer});
 
   @override
   Widget build(BuildContext context) {
@@ -34,19 +34,19 @@ class CustomerSingleView extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  name!,
+                  customer.custName!,
                   style: const TextStyle(fontSize: 30, color: Colors.white),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                Text(phnNo!.toString(),
+                Text(customer.mobno.toString(),
                     style: const TextStyle(fontSize: 20, color: Colors.white)),
                 const SizedBox(
                   height: 5,
                 ),
                 Text(
-                  credit!.toString(),
+                  customer.credit.toString(),
                   style: const TextStyle(fontSize: 20, color: Colors.white),
                 )
               ],
@@ -62,14 +62,6 @@ class CustomerSingleView extends StatelessWidget {
             ),
             width: double.infinity,
             height: MediaQuery.of(context).size.height / 2,
-            child: Column(
-              children: const [
-                Icon(Icons.person),
-                Text('name'),
-                Text('phone no'),
-                Text('data')
-              ],
-            ),
           )
         ],
       ),

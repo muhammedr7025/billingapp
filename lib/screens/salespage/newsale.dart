@@ -1,9 +1,6 @@
-import 'package:billingapp/screens/coustomerpage/customerlist/customerlist.dart';
-import 'package:billingapp/screens/stockpages/stockhome.dart';
-import 'package:billingapp/screens/stockpages/stocklist/stocklist.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/container.dart';
+
+import '../stockpages/stocklist/stocklist.dart';
 
 class NewSale extends StatefulWidget {
   const NewSale({super.key});
@@ -20,7 +17,7 @@ class _NewSaleState extends State<NewSale> {
         title: const Text('Select Products'),
         backgroundColor: const Color.fromARGB(255, 45, 45, 45),
       ),
-      body: StockList(),
+      body: const StockList(),
     );
   }
 }
