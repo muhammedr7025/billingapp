@@ -24,4 +24,14 @@ class ProductProvider with ChangeNotifier {
         stockDate: product.stockDate));
     notifyListeners();
   }
+
+  Future<void> editProduct(Product productOld, Product productNew) async {
+    final index = _savedProduct.indexWhere((element) => productOld == element);
+    _savedProduct[index] = Product(
+        productName: productNew.productName,
+        productCode: productNew.productCode,
+        price: productNew.price,
+        stockCount: productNew.stockCount,
+        stockDate: productNew.stockDate);
+  }
 }

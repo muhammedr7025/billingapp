@@ -1,4 +1,3 @@
-import 'package:billingapp/screens/salespage/newsaleitem.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchable_listview/searchable_listview.dart';
@@ -6,6 +5,7 @@ import 'package:searchable_listview/searchable_listview.dart';
 import '../../../model/product.dart';
 import '../../../provider/productprovider.dart';
 import '../../../widget/emptyview.dart';
+import '../../salespage/newsaleitem.dart';
 import 'stockitem.dart';
 
 class StockList extends StatefulWidget {
@@ -112,11 +112,17 @@ class _StockListState extends State<StockList> {
                     context,
                   );
                 }),
-                child: const Text(
-                  'Add Product',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
-                ),
+                child: option == 'product'
+                    ? const Text(
+                        'Add Product',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      )
+                    : const Text(
+                        'Submit',
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
               ),
             ),
           )

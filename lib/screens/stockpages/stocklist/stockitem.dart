@@ -1,7 +1,7 @@
-import 'package:billingapp/model/product.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../../model/product.dart';
 import '../../../provider/productprovider.dart';
 
 class StockItem extends StatelessWidget {
@@ -24,6 +24,11 @@ class StockItem extends StatelessWidget {
               final TextEditingController stock = TextEditingController();
 
               final TextEditingController price = TextEditingController();
+              name.text = product.productName!;
+              code.text = product.productCode!;
+              date.text = product.stockDate!;
+              stock.text = product.stockCount!.toString();
+              price.text = product.price!.toString();
               return AlertDialog(
                 backgroundColor: const Color.fromARGB(255, 210, 207, 207),
                 title: const Center(child: Text("Add Stock")),
@@ -172,12 +177,15 @@ class StockItem extends StatelessWidget {
                             stockDate: date.text,
                             stockCount: int.parse(stock.text),
                             price: double.parse(price.text));
-                        provider.saveProduct(toSave);
+
+                        provider.editProduct(product, toSave);
+
                         name.clear();
                         code.clear();
                         date.clear();
                         stock.clear();
                         price.clear();
+                        provider.savedProductList;
                         Navigator.of(context).pop();
                       },
                     ),

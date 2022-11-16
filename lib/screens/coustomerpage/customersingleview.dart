@@ -13,6 +13,9 @@ class CustomerSingleView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Customer details'),
         backgroundColor: const Color.fromARGB(255, 45, 45, 45),
+        actions: [
+          IconButton(onPressed: (() {}), icon: const Icon(Icons.price_check))
+        ],
       ),
       body: Column(
         children: [

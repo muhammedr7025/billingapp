@@ -14,7 +14,7 @@ class NewSaleItem extends StatefulWidget {
 class _NewSaleItemState extends State<NewSaleItem> {
   @override
   Widget build(BuildContext context) {
-    int _count = 0;
+    int count = 0;
 
     return Padding(
       padding: const EdgeInsets.all(3),
@@ -72,14 +72,14 @@ class _NewSaleItemState extends State<NewSaleItem> {
               ],
             ),
             CartStepperInt(
-              count: _count,
+              value: count,
               size: 30,
-              style: CartStepperStyle.fromTheme(Theme.of(context)).copyWith(
-                activeForegroundColor: Colors.purple,
-              ),
-              didChangeCount: (count) {
+              didChangeCount: (count1) {
+                print(count1);
+                count = count1;
                 setState(() {
-                  _count = count;
+                  count = count1;
+                  print(count);
                 });
               },
             )
