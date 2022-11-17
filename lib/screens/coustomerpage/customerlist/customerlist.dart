@@ -103,7 +103,7 @@ class _CustomerListState extends State<CustomerList> {
                 style:
                     ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
                 onPressed: (() {
-                  showAddNoteDialog(
+                  customerAdd(
                     context,
                   );
                 }),
@@ -120,7 +120,7 @@ class _CustomerListState extends State<CustomerList> {
     );
   }
 
-  showAddNoteDialog(
+  customerAdd(
     BuildContext context,
   ) {
     showDialog(

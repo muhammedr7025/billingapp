@@ -34,7 +34,9 @@ class _StockListState extends State<StockList> {
                 style: const TextStyle(fontSize: 15),
                 onPaginate: () async {
                   await Future.delayed(const Duration(milliseconds: 100));
-                  setState(() {});
+                  setState(() {
+                    provider.savedProductList;
+                  });
                 },
                 builder: (Product product) => option == 'product'
                     ? StockItem(product: product)
@@ -108,7 +110,7 @@ class _StockListState extends State<StockList> {
                 style:
                     ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
                 onPressed: (() {
-                  showAddNoteDialog(
+                  productAdd(
                     context,
                   );
                 }),
@@ -131,7 +133,7 @@ class _StockListState extends State<StockList> {
     );
   }
 
-  showAddNoteDialog(BuildContext context) => showDialog(
+  productAdd(BuildContext context) => showDialog(
         context: context,
         builder: (context) {
           final provider = Provider.of<ProductProvider>(context);
