@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchable_listview/searchable_listview.dart';
 import '../../../model/customer.dart';
-import '../../../provider/customerProvider.dart';
+import '../../../provider/customerprovider.dart';
 import '../../../widget/emptyview.dart';
 import 'customeritem.dart';
 

@@ -2,12 +2,24 @@ import 'package:billingapp/model/customer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../../provider/customerProvider.dart';
+import '../../provider/customerprovider.dart';
 
-class CustomerSingleView extends StatelessWidget {
+class CustomerSingleView extends StatefulWidget {
   final Customer customer;
 
   const CustomerSingleView({super.key, required this.customer});
+
+  @override
+  State<CustomerSingleView> createState() => _CustomerSingleViewState();
+}
+
+class _CustomerSingleViewState extends State<CustomerSingleView> {
+  late double credit;
+  @override
+  void initState() {
+    credit = widget.customer.credit ?? 0;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +31,14 @@ class CustomerSingleView extends StatelessWidget {
         actions: [
           IconButton(
               onPressed: (() {
-                editCreditPage(context);
+                editCreditPage(
+                  context,
+                  onCreditChanged: (value) {
+                    setState(() {
+                      credit = value;
+                    });
+                  },
+                );
               }),
               icon: const Icon(Icons.price_check))
         ],
@@ -44,19 +63,19 @@ class CustomerSingleView extends StatelessWidget {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  customer.custName!,
+                  widget.customer.custName!,
                   style: const TextStyle(fontSize: 30, color: Colors.white),
                 ),
                 const SizedBox(
                   height: 5,
                 ),
-                Text(customer.mobno.toString(),
+                Text(widget.customer.mobno.toString(),
                     style: const TextStyle(fontSize: 20, color: Colors.white)),
                 const SizedBox(
                   height: 5,
                 ),
                 Text(
-                  customer.credit.toString(),
+                  credit.toString(),
                   style: const TextStyle(fontSize: 20, color: Colors.white),
                 )
               ],
@@ -80,8 +99,9 @@ class CustomerSingleView extends StatelessWidget {
   }
 
   editCreditPage(
-    BuildContext context,
-  ) {
+    BuildContext context, {
+    required ValueChanged<double> onCreditChanged,
+  }) {
     showDialog(
       context: context,
       builder: (context) {
@@ -139,10 +159,13 @@ class CustomerSingleView extends StatelessWidget {
                       backgroundColor: Colors.blueGrey),
                   child: const Text("Add credit"),
                   onPressed: () {
+                    double newCredit = (widget.customer.credit ?? 0) +
+                        (double.tryParse(credit.text) ?? 0);
+                    onCreditChanged(newCredit);
                     provider.editCredit(
-                        customer: customer,
-                        credit: num.tryParse(credit.text),
-                        option: 'add');
+                      customer: widget.customer,
+                      credit: newCredit,
+                    );
                     Navigator.of(context).pop();
                   },
                 ),
@@ -151,10 +174,11 @@ class CustomerSingleView extends StatelessWidget {
                       backgroundColor: Colors.blueGrey),
                   child: const Text("Reduce credit"),
                   onPressed: () {
+                    double newCredit = (widget.customer.credit ?? 0) -
+                        (double.tryParse(credit.text) ?? 0);
+                    onCreditChanged(newCredit);
                     provider.editCredit(
-                        customer: customer,
-                        credit: num.tryParse(credit.text),
-                        option: 'remove');
+                        customer: widget.customer, credit: newCredit);
                     Navigator.of(context).pop();
                   },
                 ),

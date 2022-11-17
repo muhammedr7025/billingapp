@@ -1,4 +1,4 @@
-import 'package:billingapp/provider/customerProvider.dart';
+import 'package:billingapp/provider/customerprovider.dart';
 import 'package:billingapp/provider/productprovider.dart';
 import 'package:billingapp/provider/salesprovider.dart';
 import 'package:flutter/material.dart';

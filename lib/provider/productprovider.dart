@@ -12,7 +12,7 @@ class ProductProvider with ChangeNotifier {
         stockCount: 7)
   ];
   List<Product> get savedProductList {
-    return [..._savedProduct];
+    return _savedProduct;
   }
 
   Future<void> saveProduct(Product product) async {

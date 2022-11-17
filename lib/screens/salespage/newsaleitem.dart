@@ -12,10 +12,10 @@ class NewSaleItem extends StatefulWidget {
 }
 
 class _NewSaleItemState extends State<NewSaleItem> {
+  late int totalStock = widget.product.stockCount ?? 0;
+  int count = 0;
   @override
   Widget build(BuildContext context) {
-    int count = 0;
-
     return Padding(
       padding: const EdgeInsets.all(3),
       child: Container(
@@ -71,17 +71,23 @@ class _NewSaleItemState extends State<NewSaleItem> {
                 ),
               ],
             ),
-            CartStepperInt(
-              value: count,
-              size: 30,
-              didChangeCount: (count1) {
-                print(count1);
-                count = count1;
-                setState(() {
-                  count = count1;
-                  print(count);
-                });
-              },
+            Padding(
+              padding: const EdgeInsets.all(4.0),
+              child: CartStepperInt(
+                value: count,
+                size: 30,
+                style: const CartStepperStyle(
+                  activeForegroundColor: Colors.white,
+                  activeBackgroundColor: Colors.grey,
+                ),
+                didChangeCount: (count1) {
+                  if (count1 <= totalStock) {
+                    setState(() {
+                      count = count1;
+                    });
+                  }
+                },
+              ),
             )
           ],
         ),

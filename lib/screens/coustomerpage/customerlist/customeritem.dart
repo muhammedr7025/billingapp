@@ -76,7 +76,7 @@ class CustomerItem extends StatelessWidget {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(customer.credit!.toString())
+                      Text(customer.credit?.toString() ?? "0")
                     ],
                   )
                 ],

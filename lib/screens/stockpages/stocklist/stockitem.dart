@@ -31,7 +31,7 @@ class StockItem extends StatelessWidget {
               price.text = product.price!.toString();
               return AlertDialog(
                 backgroundColor: const Color.fromARGB(255, 210, 207, 207),
-                title: const Center(child: Text("Add Stock")),
+                title: const Center(child: Text("Edit Stock")),
                 content: SingleChildScrollView(
                   child: SizedBox(
                     width: double.infinity,
