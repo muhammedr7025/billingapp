@@ -87,7 +87,7 @@ class _NewSaleItemState extends State<NewSaleItem> {
                     setState(() {
                       count = count1;
                     });
-                    Provider.of<Cartprovider>(context, listen: true).addToCart(
+                    Provider.of<Cartprovider>(context, listen: false).addToCart(
                       widget.product,
                       count,
                     );
