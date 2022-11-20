@@ -51,7 +51,7 @@ class _CustomerSingleViewState extends State<CustomerSingleView> {
               color: Color.fromARGB(255, 45, 45, 45),
               borderRadius: BorderRadius.all(Radius.circular(25.0)),
             ),
-            width: MediaQuery.of(context).size.width / 3,
+            width: MediaQuery.of(context).size.width / 1.5,
             height: MediaQuery.of(context).size.height / 2.5,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,

@@ -196,7 +196,7 @@ class StockItem extends StatelessWidget {
           );
         },
         child: Container(
-          height: 80,
+          height: 100,
           decoration: BoxDecoration(
             color: Colors.grey[200],
             borderRadius: BorderRadius.circular(10),

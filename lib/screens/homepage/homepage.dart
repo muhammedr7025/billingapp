@@ -12,25 +12,42 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey,
       body: Center(
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: const [
-            OptionButton(
-              name: 'Stocks',
-              icon: Icons.shopping_cart_checkout_rounded,
-              navPage: StockHome(),
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Center(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: const [
+                SizedBox(
+                  width: 30,
+                ),
+                OptionButton(
+                  name: 'Stocks',
+                  icon: Icons.shopping_cart_checkout_rounded,
+                  navPage: StockHome(),
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                OptionButton(
+                  name: 'Sales',
+                  icon: Icons.shopping_bag,
+                  navPage: SalesHomePage(),
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+                OptionButton(
+                  name: 'Coustomer',
+                  icon: Icons.person_outline,
+                  navPage: CoustomerHomePage(),
+                ),
+                SizedBox(
+                  width: 30,
+                ),
+              ],
             ),
-            OptionButton(
-              name: 'Sales',
-              icon: Icons.shopping_bag,
-              navPage: SalesHomePage(),
-            ),
-            OptionButton(
-              name: 'Coustomer',
-              icon: Icons.person_outline,
-              navPage: CoustomerHomePage(),
-            )
-          ],
+          ),
         ),
       ),
     );

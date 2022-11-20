@@ -42,7 +42,7 @@ dependencies:
   cart_stepper: ^3.0.2
   
   responsive_builder: ^0.4.3
-
+  animated_shimmer: ^1.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
