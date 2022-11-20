@@ -1,3 +1,5 @@
+import 'package:billingapp/provider/cartprovider.dart';
+import 'package:billingapp/screens/salespage/salespayment.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:searchable_listview/searchable_listview.dart';
@@ -109,11 +111,18 @@ class _StockListState extends State<StockList> {
               child: ElevatedButton(
                 style:
                     ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
-                onPressed: (() {
-                  productAdd(
-                    context,
-                  );
-                }),
+                onPressed: option == 'product'
+                    ? (() {
+                        productAdd(
+                          context,
+                        );
+                      })
+                    : () {
+                        Provider.of<Cartprovider>(context, listen: false)
+                            .proceedToCart();
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: ((context) => const SalesPayment())));
+                      },
                 child: option == 'product'
                     ? const Text(
                         'Add Product',

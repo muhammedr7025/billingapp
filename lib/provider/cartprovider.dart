@@ -17,7 +17,17 @@ class Cartprovider with ChangeNotifier {
     notifyListeners();
   }
 
-  void procedCart() {}
+  void proceedToCart() {
+    for (int i = 0; i < _cart.length; i++) {
+      if (_cart[i].itemCount == 0) {
+        _cart.removeAt(i);
+
+        i--;
+      }
+      notifyListeners();
+    }
+  }
+
   void clearCart() {
     _cart.clear();
   }

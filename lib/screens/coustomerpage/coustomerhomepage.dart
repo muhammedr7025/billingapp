@@ -1,5 +1,7 @@
-import 'package:billingapp/screens/coustomerpage/customerlist/customerlist.dart';
 import 'package:flutter/material.dart';
+
+import '../../constant.dart';
+import 'customerlist/customerlist.dart';
 
 class CoustomerHomePage extends StatefulWidget {
   const CoustomerHomePage({super.key});
@@ -14,7 +16,7 @@ class _CoustomerHomePageState extends State<CoustomerHomePage> {
     return Scaffold(
         backgroundColor: Colors.grey,
         appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 45, 45, 45),
+          backgroundColor: appBarColor,
           title: const Text('Coustomers'),
         ),
         body: const CustomerList());

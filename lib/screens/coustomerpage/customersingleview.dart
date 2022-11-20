@@ -1,7 +1,8 @@
-import 'package:billingapp/model/customer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../../constant.dart';
+import '../../model/customer.dart';
 import '../../provider/customerprovider.dart';
 
 class CustomerSingleView extends StatefulWidget {
@@ -24,10 +25,9 @@ class _CustomerSingleViewState extends State<CustomerSingleView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey,
       appBar: AppBar(
         title: const Text('Customer details'),
-        backgroundColor: const Color.fromARGB(255, 45, 45, 45),
+        backgroundColor: appBarColor,
         actions: [
           IconButton(
               onPressed: (() {
