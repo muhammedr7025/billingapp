@@ -7,20 +7,17 @@ class Cartprovider with ChangeNotifier {
   final List<Cart> _cart = [];
   List<Cart> get cartDetails => _cart;
   void addToCart(Product product, int itemCount) {
-    final index = _cart.indexWhere(
-        (Cart element) => product.productCode == element.item!.productCode);
-    print(index);
+    final index = _cart.indexWhere((element) => product == element.item);
+
     if (index == -1) {
-      print('addnew');
+      _cart.add(Cart(item: product, itemCount: itemCount));
     } else {
-      print('addagain');
-      print(index);
+      _cart[index].itemCount = itemCount;
     }
-    print(product.productName);
-    print(itemCount);
     notifyListeners();
   }
 
+  void procedCart() {}
   void clearCart() {
     _cart.clear();
   }
