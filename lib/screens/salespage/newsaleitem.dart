@@ -1,7 +1,9 @@
 import 'package:billingapp/model/product.dart';
+import 'package:billingapp/provider/cartprovider.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cart_stepper/cart_stepper.dart';
+import 'package:provider/provider.dart';
 
 class NewSaleItem extends StatefulWidget {
   final Product product;
@@ -85,6 +87,10 @@ class _NewSaleItemState extends State<NewSaleItem> {
                     setState(() {
                       count = count1;
                     });
+                    Provider.of<Cartprovider>(context, listen: true).addToCart(
+                      widget.product,
+                      count,
+                    );
                   }
                 },
               ),

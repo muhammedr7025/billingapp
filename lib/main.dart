@@ -1,3 +1,4 @@
+import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/provider/customerprovider.dart';
 import 'package:billingapp/provider/productprovider.dart';
 import 'package:billingapp/provider/salesprovider.dart';
@@ -25,6 +26,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider<SalesProvider>(
           create: (_) => SalesProvider(),
         ),
+        ChangeNotifierProvider<Cartprovider>(
+          create: (_) => Cartprovider(),
+        )
       ],
       child: MaterialApp(
           debugShowCheckedModeBanner: false,
