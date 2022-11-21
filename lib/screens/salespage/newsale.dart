@@ -29,31 +29,36 @@ class _NewSaleState extends State<NewSale> {
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
-            child: TypeAheadField(
-              textFieldConfiguration: const TextFieldConfiguration(
-                  autofocus: true,
-                  style: TextStyle(fontSize: 20),
-                  decoration: InputDecoration(
-                      label: Text('search product'),
-                      border: OutlineInputBorder(),
-                      icon: Icon(Icons.search))),
-              suggestionsCallback: (pattern) async {
-                var data = Provider.of<ProductProvider>(context, listen: false)
-                    .filterProduct(pattern);
-                return await data;
-              },
-              itemBuilder: (context, dynamic s) {
-                return Container(
-                  child: ListTile(
-                    leading: Icon(Icons.shopping_cart),
-                    title: Text(s.productName),
-                    subtitle: Text(s.price.toString()),
-                  ),
-                );
-              },
-              onSuggestionSelected: (suggestion) {
-                provider.addToCart(suggestion, 1);
-              },
+            child: Container(
+              color: Colors.white,
+              width: double.infinity,
+              child: TypeAheadField(
+                textFieldConfiguration: const TextFieldConfiguration(
+                    autofocus: true,
+                    style: TextStyle(fontSize: 20),
+                    decoration: InputDecoration(
+                        label: Text('search product'),
+                        border: OutlineInputBorder(),
+                        icon: Icon(Icons.search))),
+                suggestionsCallback: (pattern) async {
+                  var data =
+                      Provider.of<ProductProvider>(context, listen: false)
+                          .filterProduct(pattern);
+                  return await data;
+                },
+                itemBuilder: (context, dynamic s) {
+                  return Container(
+                    child: ListTile(
+                      leading: Icon(Icons.shopping_cart),
+                      title: Text(s.productName),
+                      subtitle: Text(s.price.toString()),
+                    ),
+                  );
+                },
+                onSuggestionSelected: (suggestion) {
+                  provider.addToCart(suggestion, 1);
+                },
+              ),
             ),
           ),
           Expanded(
@@ -92,14 +97,18 @@ class _NewSaleState extends State<NewSale> {
               );
             },
           )),
-          Center(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: ElevatedButton(
-                onPressed: () {
-                  provider.proceedToCart();
-                },
-                child: Text('submit'),
+          Container(
+            color: Colors.white,
+            width: double.infinity,
+            child: Center(
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    provider.proceedToCart();
+                  },
+                  child: Text('submit'),
+                ),
               ),
             ),
           )
