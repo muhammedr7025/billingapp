@@ -7,7 +7,6 @@ import 'package:searchable_listview/searchable_listview.dart';
 import '../../../model/product.dart';
 import '../../../provider/productprovider.dart';
 import '../../../widget/emptyview.dart';
-import '../../salespage/newsaleitem.dart';
 import 'stockitem.dart';
 
 class StockList extends StatefulWidget {
@@ -42,7 +41,7 @@ class _StockListState extends State<StockList> {
                 },
                 builder: (Product product) => option == 'product'
                     ? StockItem(product: product)
-                    : NewSaleItem(product: product),
+                    : SizedBox(),
                 loadingWidget: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [

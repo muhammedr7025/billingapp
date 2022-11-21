@@ -43,6 +43,7 @@ dependencies:
   
   responsive_builder: ^0.4.3
   animated_shimmer: ^1.0.0
+  flutter_typeahead: ^4.1.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 import '../model/product.dart';
@@ -33,5 +35,13 @@ class ProductProvider with ChangeNotifier {
         price: productNew.price,
         stockCount: productNew.stockCount,
         stockDate: productNew.stockDate);
+  }
+
+  Future<List> filterProduct(String keyWord) async {
+    List<Product> filteredList = _savedProduct
+        .where(
+            (element) => element.productName!.toLowerCase().contains(keyWord))
+        .toList();
+    return filteredList;
   }
 }
