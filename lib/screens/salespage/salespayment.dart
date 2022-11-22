@@ -76,8 +76,12 @@ class _SalesPaymentState extends State<SalesPayment> {
                               child: TextField(
                                 controller: discountController,
                                 onChanged: (value) {
-                                  provider
+                                  // provider
+                                  //     .calcBillAmount(double.tryParse(value)!);
+                                  context
+                                      .watch<Cartprovider>()
                                       .calcBillAmount(double.tryParse(value)!);
+                                  print(value);
                                 },
                               ))
                         ],

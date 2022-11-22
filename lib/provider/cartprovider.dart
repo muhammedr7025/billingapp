@@ -33,7 +33,7 @@ class Cartprovider with ChangeNotifier {
   }
 
   void calcBillAmount(double discoount) {
-    double billAmount = totalAmoount - discoount;
+    _billAmount = totalAmoount - discoount;
     notifyListeners();
   }
 
