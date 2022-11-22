@@ -23,4 +23,13 @@ class CustomerProvider with ChangeNotifier {
 
     notifyListeners();
   }
+
+  Future<List> filterCustomer(String keyWord) async {
+    List<Customer> filteredList = _savedCustomer
+        .where((element) =>
+            element.custName!.toLowerCase().contains(keyWord) ||
+            element.mobno!.toString().toLowerCase().contains(keyWord))
+        .toList();
+    return filteredList;
+  }
 }

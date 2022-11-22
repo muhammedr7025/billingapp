@@ -1,6 +1,7 @@
 import 'package:billingapp/model/product.dart';
 import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/provider/productprovider.dart';
+import 'package:billingapp/screens/salespage/salespayment.dart';
 import 'package:cart_stepper/cart_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -74,8 +75,7 @@ class _NewSaleState extends State<NewSale> {
                   leading: Text((index + 1).toString()),
                   title: Text(
                       provider.cartDetails[index].item!.productName.toString()),
-                  subtitle:
-                      Text('\$${provider.cartDetails[index].item!.price}'),
+                  subtitle: Text('\$${provider.cartDetails[index].totalPrice}'),
                   trailing: CartStepper(
                     value: counter,
                     //value: provider.cartDetails[index].itemCount,
@@ -106,6 +106,8 @@ class _NewSaleState extends State<NewSale> {
                 child: ElevatedButton(
                   onPressed: () {
                     provider.proceedToCart();
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: ((context) => SalesPayment())));
                   },
                   child: Text('submit'),
                 ),
