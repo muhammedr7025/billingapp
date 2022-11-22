@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import '../model/cart.dart';
 
 class Cartprovider with ChangeNotifier {
-  double totalBillPrice = 0;
-
+  double totalBillPrice = 0; // productinda price x item with full
+  double billAmount = 0; //bill after discount
   final List<Cart> _cart = [];
   List<Cart> get cartDetails => _cart;
   double get totalAmoount => totalBillPrice;

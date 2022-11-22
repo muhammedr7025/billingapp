@@ -84,7 +84,7 @@ class _SalesPaymentState extends State<SalesPayment> {
                       ),
                       Consumer<Cartprovider>(
                           builder: (context, value, child) =>
-                              Text('Total Bill Amount ${value.totalAmoount}')),
+                              Text('Bill Amount ${value.totalAmoount}')),
                       Row(
                         children: [
                           Text('By cash '),
