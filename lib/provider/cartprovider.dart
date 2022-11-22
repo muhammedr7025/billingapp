@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:billingapp/model/product.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +15,6 @@ class Cartprovider with ChangeNotifier {
 
     if (index == -1) {
       _cart.add(Cart(item: product, itemCount: itemCount));
-      final index2 = _cart.indexWhere((element) => product == element.item);
       notifyListeners();
     } else {
       _cart[index].itemCount = itemCount;

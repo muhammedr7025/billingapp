@@ -76,9 +76,10 @@ class _SalesPaymentState extends State<SalesPayment> {
                                 onChanged: (value) {
                                   // provider
                                   //     .calcBillAmount(double.tryParse(value)!);
-                                  Provider.of<Cartprovider>(context,
-                                          listen: false)
-                                      .calcBillAmount(double.tryParse(value)!);
+                                  setState(() {
+                                    double billAmount = provider.totalAmoount -
+                                        double.tryParse(value)!;
+                                  });
                                   print(value);
                                 },
                               ))
@@ -90,7 +91,12 @@ class _SalesPaymentState extends State<SalesPayment> {
                       Row(
                         children: [
                           Text('By cash '),
-                          SizedBox(width: 120, height: 20, child: TextField())
+                          SizedBox(
+                              width: 120,
+                              height: 20,
+                              child: TextFormField(
+                                initialValue: provider.totalAmoount.toString(),
+                              ))
                         ],
                       ),
                       Text('Credit amount')
@@ -98,6 +104,7 @@ class _SalesPaymentState extends State<SalesPayment> {
                   ),
                 ),
               ),
+              ElevatedButton(onPressed: (() {}), child: Text('submit'))
             ],
           ),
         ));
