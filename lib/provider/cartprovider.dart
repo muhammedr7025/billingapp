@@ -7,6 +7,10 @@ import '../model/cart.dart';
 
 class Cartprovider with ChangeNotifier {
   double totalBillPrice = 0;
+  void calcBillAmount(double discoount) {
+    double billAmount = totalBillPrice - discoount;
+    notifyListeners();
+  }
 
   final List<Cart> _cart = [];
   List<Cart> get cartDetails => _cart;
