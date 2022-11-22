@@ -7,9 +7,10 @@ import '../model/cart.dart';
 
 class Cartprovider with ChangeNotifier {
   double totalBillPrice = 0; // productinda price x item with full
-  double billAmount = 0; //bill after discount
+  double _billAmount = 0; //bill after discount
   final List<Cart> _cart = [];
   List<Cart> get cartDetails => _cart;
+  double get billAmount => _billAmount;
   double get totalAmoount => totalBillPrice;
   void addToCart(Product product, int itemCount) {
     final index = _cart.indexWhere((element) => product == element.item);
@@ -48,6 +49,7 @@ class Cartprovider with ChangeNotifier {
     totalBillPrice = 0;
     for (int i = 0; i < _cart.length; i++) {
       totalBillPrice = totalBillPrice + _cart[i].totalPrice;
+      _billAmount = totalBillPrice;
     }
     notifyListeners();
   }
