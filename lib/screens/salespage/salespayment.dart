@@ -21,7 +21,6 @@ class _SalesPaymentState extends State<SalesPayment> {
     String custname;
     TextEditingController txt = TextEditingController();
     TextEditingController byCashController = TextEditingController();
-    TextEditingController discountController = TextEditingController();
     double credit;
     Cartprovider provider = Provider.of<Cartprovider>(context);
     CustomerProvider providerCust = Provider.of<CustomerProvider>(context);
@@ -74,12 +73,11 @@ class _SalesPaymentState extends State<SalesPayment> {
                               width: 120,
                               height: 20,
                               child: TextField(
-                                controller: discountController,
                                 onChanged: (value) {
                                   // provider
                                   //     .calcBillAmount(double.tryParse(value)!);
-                                  context
-                                      .watch<Cartprovider>()
+                                  Provider.of<Cartprovider>(context,
+                                          listen: false)
                                       .calcBillAmount(double.tryParse(value)!);
                                   print(value);
                                 },
