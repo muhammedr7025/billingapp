@@ -75,12 +75,10 @@ class _SalesPaymentState extends State<SalesPayment> {
                               height: 20,
                               child: TextField(
                                 controller: discountController,
-                                onEditingComplete: (() {
-                                  setState(() {
-                                    totalBillAmount = provider.totalAmoount -
-                                        num.tryParse(discountController.text)!;
-                                  });
-                                }),
+                                onChanged: (value) {
+                                  provider
+                                      .calcBillAmount(double.tryParse(value)!);
+                                },
                               ))
                         ],
                       ),

@@ -7,10 +7,6 @@ import '../model/cart.dart';
 
 class Cartprovider with ChangeNotifier {
   double totalBillPrice = 0;
-  void calcBillAmount(double discoount) {
-    double billAmount = totalBillPrice - discoount;
-    notifyListeners();
-  }
 
   final List<Cart> _cart = [];
   List<Cart> get cartDetails => _cart;
@@ -32,6 +28,11 @@ class Cartprovider with ChangeNotifier {
   void removeItem(Product product) {
     final index = _cart.indexWhere((element) => product == element.item);
     _cart.removeAt(index);
+    notifyListeners();
+  }
+
+  void calcBillAmount(double discoount) {
+    double billAmount = totalAmoount - discoount;
     notifyListeners();
   }
 
