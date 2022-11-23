@@ -29,21 +29,32 @@ class _SalesPaymentState extends State<SalesPayment> {
     return Scaffold(
         appBar: AppBar(
             backgroundColor: appBarColor, title: const Text('confirm order')),
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Text('Bill Amount   ${provider.totalBillPrice}'),
-              Form(
-                key: _formKey,
-                child: Padding(
-                  padding: EdgeInsets.all(32.0),
+        body: Padding(
+          padding: const EdgeInsets.all(10.0),
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Bill Amount   ${provider.totalBillPrice}',
+                      style: const TextStyle(fontSize: 25),
+                    ),
+                  ],
+                ),
+                Form(
+                  key: _formKey,
                   child: Column(
                     children: <Widget>[
                       TypeAheadFormField(
                         textFieldConfiguration: TextFieldConfiguration(
                             controller: txt,
-                            decoration:
-                                InputDecoration(labelText: 'Select customer')),
+                            decoration: const InputDecoration(
+                              labelText: 'Select customer',
+                              labelStyle: TextStyle(fontSize: 25),
+                            )),
                         suggestionsCallback: (pattern) {
                           return providerCust.filterCustomer(pattern);
                         },
@@ -66,46 +77,69 @@ class _SalesPaymentState extends State<SalesPayment> {
                         },
                         onSaved: (newValue) => custname = newValue!,
                       ),
-                      Row(
-                        children: [
-                          Text('discount '),
-                          SizedBox(
-                              width: 120,
-                              height: 20,
-                              child: TextField(
-                                onChanged: (value) {
-                                  // provider
-                                  //     .calcBillAmount(double.tryParse(value)!);
-                                  setState(() {
-                                    double billAmount = provider.totalAmoount -
-                                        double.tryParse(value)!;
-                                  });
-                                  print(value);
-                                },
-                              ))
-                        ],
-                      ),
-                      Consumer<Cartprovider>(
-                          builder: (context, value, child) =>
-                              Text('Bill Amount ${value.billAmount}')),
-                      Row(
-                        children: [
-                          Text('By cash '),
-                          SizedBox(
-                              width: 120,
-                              height: 20,
-                              child: TextFormField(
-                                initialValue: provider.totalAmoount.toString(),
-                              ))
-                        ],
-                      ),
-                      Text('Credit amount')
                     ],
                   ),
                 ),
-              ),
-              ElevatedButton(onPressed: (() {}), child: Text('submit'))
-            ],
+                Row(
+                  children: [
+                    const Text(
+                      'Discount ',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                    SizedBox(
+                        width: 120,
+                        height: 20,
+                        child: TextField(
+                          style: TextStyle(fontSize: 25),
+                          onChanged: (value) {
+                            // provider
+                            //     .calcBillAmount(double.tryParse(value)!);
+                            setState(() {
+                              double billAmount = provider.totalAmoount -
+                                  double.tryParse(value)!;
+                            });
+                            print(value);
+                          },
+                        ))
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Consumer<Cartprovider>(
+                        builder: (context, value, child) => Text(
+                              'Bill Amount ${value.billAmount}',
+                              style: const TextStyle(fontSize: 25),
+                            )),
+                  ],
+                ),
+                Row(
+                  children: [
+                    const Text(
+                      'By cash ',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                    SizedBox(
+                        width: 120,
+                        height: 20,
+                        child: TextFormField(
+                          style: const TextStyle(fontSize: 25),
+                          initialValue: provider.totalAmoount.toString(),
+                        ))
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: const [
+                    Text(
+                      'Credit amount',
+                      style: TextStyle(fontSize: 25),
+                    ),
+                  ],
+                ),
+                ElevatedButton(onPressed: (() {}), child: Text('submit'))
+              ],
+            ),
           ),
         ));
   }
