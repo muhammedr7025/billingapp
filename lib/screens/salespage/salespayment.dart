@@ -14,17 +14,30 @@ class SalesPayment extends StatefulWidget {
 }
 
 class _SalesPaymentState extends State<SalesPayment> {
+  double creditGetting = 0;
+  double billAmount = 0;
+  double amount = 0;
+  double cash = 0;
+  double credit = 0;
+  double discount = 0;
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+
+    amount = Provider.of<Cartprovider>(context).totalAmoount;
+    billAmount = amount;
+    cash = amount;
+    credit = amount;
+  }
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
     String custname;
     TextEditingController txt = TextEditingController();
-    TextEditingController byCashController = TextEditingController();
-    double credit;
     Cartprovider provider = Provider.of<Cartprovider>(context);
     CustomerProvider providerCust = Provider.of<CustomerProvider>(context);
-    double totalBillAmount = provider.totalAmoount;
 
     return Scaffold(
         appBar: AppBar(
@@ -39,10 +52,13 @@ class _SalesPaymentState extends State<SalesPayment> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'Bill Amount   ${provider.totalBillPrice}',
+                      'Bill Amount   $billAmount',
                       style: const TextStyle(fontSize: 25),
                     ),
                   ],
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 Form(
                   key: _formKey,
@@ -80,6 +96,9 @@ class _SalesPaymentState extends State<SalesPayment> {
                     ],
                   ),
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
                 Row(
                   children: [
                     const Text(
@@ -92,26 +111,30 @@ class _SalesPaymentState extends State<SalesPayment> {
                         child: TextField(
                           style: TextStyle(fontSize: 25),
                           onChanged: (value) {
-                            // provider
-                            //     .calcBillAmount(double.tryParse(value)!);
                             setState(() {
-                              double billAmount = provider.totalAmoount -
-                                  double.tryParse(value)!;
+                              discount = double.tryParse(value) ?? 0;
+
+                              amount = billAmount - discount;
+                              credit = amount;
                             });
-                            print(value);
                           },
                         ))
                   ],
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Consumer<Cartprovider>(
-                        builder: (context, value, child) => Text(
-                              'Bill Amount ${value.billAmount}',
-                              style: const TextStyle(fontSize: 25),
-                            )),
+                    Text(
+                      'Bill Amount $amount',
+                      style: const TextStyle(fontSize: 25),
+                    )
                   ],
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 Row(
                   children: [
@@ -124,18 +147,31 @@ class _SalesPaymentState extends State<SalesPayment> {
                         height: 20,
                         child: TextFormField(
                           style: const TextStyle(fontSize: 25),
-                          initialValue: provider.totalAmoount.toString(),
+                          initialValue: 0.toString(),
+                          onChanged: (value) {
+                            setState(() {
+                              creditGetting = double.tryParse(value) ?? 0;
+                              credit = amount - creditGetting;
+                            });
+                            print(credit);
+                          },
                         ))
                   ],
                 ),
+                const SizedBox(
+                  height: 20,
+                ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
-                  children: const [
+                  children: [
                     Text(
-                      'Credit amount',
+                      'Credit amount  $credit',
                       style: TextStyle(fontSize: 25),
                     ),
                   ],
+                ),
+                const SizedBox(
+                  height: 20,
                 ),
                 ElevatedButton(onPressed: (() {}), child: Text('submit'))
               ],
