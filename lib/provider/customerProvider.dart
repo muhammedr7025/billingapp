@@ -1,3 +1,4 @@
+import 'package:billingapp/model/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import '../model/customer.dart';
@@ -11,7 +12,6 @@ class CustomerProvider with ChangeNotifier {
         uniqueId: const Uuid().v4())
   ];
   List<Customer> get savedCustomerList => _savedCustomer;
-
   void saveCustomer(Customer customer) {
     final newCustomer = Customer(
         custName: customer.custName,

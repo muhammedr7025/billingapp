@@ -19,7 +19,7 @@ class SalesProvider with ChangeNotifier {
       required double finalPrice,
       required Customer customer}) {
     Sales newSale = Sales(
-        billNo: 1,
+        billNo: _savedBills.length.toString(),
         custName: customer.custName,
         cartItems: cartitem,
         credit: credit,

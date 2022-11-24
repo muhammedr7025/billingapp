@@ -19,8 +19,7 @@ class StockList extends StatefulWidget {
 
 class _StockListState extends State<StockList> {
   DateTime selectedDate = DateTime.now();
-
-  Future<void> _selectDate(BuildContext context) async {
+  Future<DateTime> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
@@ -31,6 +30,7 @@ class _StockListState extends State<StockList> {
         selectedDate = picked;
       });
     }
+    return picked!;
   }
 
   @override
@@ -251,9 +251,16 @@ class _StockListState extends State<StockList> {
                       children: [
                         Text(selectedDate.toString()),
                         ElevatedButton.icon(
-                          onPressed: () => _selectDate(context),
+                          onPressed: () {
+                            var picked = _selectDate(context);
+                            picked.then((value) {
+                              setState(() {
+                                selectedDate = value;
+                              });
+                            });
+                          },
                           icon: const Icon(Icons.calendar_today),
-                          label: const Text(''),
+                          label: Text(selectedDate.toString()),
                         ),
                       ],
                     ),
