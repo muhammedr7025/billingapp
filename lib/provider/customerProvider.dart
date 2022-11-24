@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-
 import '../model/customer.dart';
 
 class CustomerProvider with ChangeNotifier {
   final List<Customer> _savedCustomer = [
-    Customer(custName: 'Muhammed r', mobno: 7025662019, credit: 0)
+    Customer(
+        custName: 'Muhammed r',
+        mobno: 7025662019,
+        credit: 0,
+        uniqueId: const Uuid().v4())
   ];
   List<Customer> get savedCustomerList => _savedCustomer;
 
@@ -38,6 +41,7 @@ class CustomerProvider with ChangeNotifier {
   Customer findCustomer(uid) {
     final index =
         _savedCustomer.indexWhere((element) => uid == element.uniqueId);
+    print(_savedCustomer[index].custName);
     return _savedCustomer[index];
   }
 }

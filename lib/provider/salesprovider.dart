@@ -8,7 +8,7 @@ import '../model/cart.dart';
 class SalesProvider with ChangeNotifier {
   final List<Sales> _savedBills = [];
   List<Sales> get savedBillList {
-    return [..._savedBills];
+    return _savedBills;
   }
 
   void createSale(

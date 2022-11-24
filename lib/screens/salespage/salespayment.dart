@@ -3,6 +3,7 @@ import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/provider/customerprovider.dart';
 import 'package:billingapp/provider/salesprovider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
 
 class SalesPayment extends StatefulWidget {
@@ -13,6 +14,9 @@ class SalesPayment extends StatefulWidget {
 }
 
 class _SalesPaymentState extends State<SalesPayment> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final TextEditingController _typeAheadController = TextEditingController();
+  late String _selectedCity;
   double creditGetting = 0;
   double billAmount = 0;
   double amount = 0;
@@ -20,7 +24,7 @@ class _SalesPaymentState extends State<SalesPayment> {
   double credit = 0;
   double discount = 0;
   late String custname;
-  String uid = 'null';
+  late String uid;
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -57,6 +61,58 @@ class _SalesPaymentState extends State<SalesPayment> {
                 const SizedBox(
                   height: 20,
                 ),
+                Form(
+                  key: this._formKey,
+                  child: Padding(
+                    padding: EdgeInsets.all(32.0),
+                    child: Column(
+                      children: <Widget>[
+                        Text('select customer?'),
+                        TypeAheadFormField(
+                          textFieldConfiguration: TextFieldConfiguration(
+                              controller: _typeAheadController,
+                              decoration:
+                                  InputDecoration(labelText: 'Customer')),
+                          suggestionsCallback: (pattern) {
+                            return providerCust.filterCustomer(pattern);
+                          },
+                          itemBuilder: (context, suggestion) {
+                            return ListTile(
+                              title: Text(suggestion.custName!),
+                            );
+                          },
+                          transitionBuilder:
+                              (context, suggestionsBox, controller) {
+                            return suggestionsBox;
+                          },
+                          onSuggestionSelected: (suggestion) {
+                            _typeAheadController.text = suggestion.custName!;
+                            uid = suggestion.uniqueId;
+                            print(uid);
+                          },
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return 'Please select a customer';
+                            }
+                          },
+                          onSaved: (value) => _selectedCity = value!,
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        MaterialButton(
+                          child: Text('Submit'),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              _formKey.currentState!.save();
+                              print('warning');
+                            }
+                          },
+                        )
+                      ],
+                    ),
+                  ),
+                ),
                 const SizedBox(
                   height: 20,
                 ),
@@ -74,7 +130,6 @@ class _SalesPaymentState extends State<SalesPayment> {
                           onChanged: (value) {
                             setState(() {
                               discount = double.tryParse(value) ?? 0;
-
                               amount = billAmount - discount;
                               credit = amount - creditGetting;
                             });
