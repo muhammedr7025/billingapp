@@ -1,11 +1,8 @@
 import 'package:billingapp/constant.dart';
-import 'package:billingapp/model/customer.dart';
 import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/provider/customerprovider.dart';
 import 'package:billingapp/provider/salesprovider.dart';
-import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
 
 class SalesPayment extends StatefulWidget {
@@ -36,9 +33,6 @@ class _SalesPaymentState extends State<SalesPayment> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-
-    TextEditingController txt = TextEditingController();
     Cartprovider provider = Provider.of<Cartprovider>(context);
     CustomerProvider providerCust = Provider.of<CustomerProvider>(context);
 
@@ -76,7 +70,7 @@ class _SalesPaymentState extends State<SalesPayment> {
                         width: 120,
                         height: 20,
                         child: TextField(
-                          style: TextStyle(fontSize: 25),
+                          style: const TextStyle(fontSize: 25),
                           onChanged: (value) {
                             setState(() {
                               discount = double.tryParse(value) ?? 0;
@@ -120,7 +114,6 @@ class _SalesPaymentState extends State<SalesPayment> {
                               creditGetting = double.tryParse(value) ?? 0;
                               credit = amount - creditGetting;
                             });
-                            print(credit);
                           },
                         ))
                   ],
@@ -133,7 +126,7 @@ class _SalesPaymentState extends State<SalesPayment> {
                   children: [
                     Text(
                       'Credit amount  $credit',
-                      style: TextStyle(fontSize: 25),
+                      style: const TextStyle(fontSize: 25),
                     ),
                   ],
                 ),
@@ -151,7 +144,7 @@ class _SalesPaymentState extends State<SalesPayment> {
                               finalPrice: amount,
                               customer: providerCust.findCustomer(uid));
                     }),
-                    child: Text('submit'))
+                    child: const Text('submit'))
               ],
             ),
           ),

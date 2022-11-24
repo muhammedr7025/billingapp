@@ -56,7 +56,7 @@ class _StockListState extends State<StockList> {
                 },
                 builder: (Product product) => option == 'product'
                     ? StockItem(product: product)
-                    : SizedBox(),
+                    : const SizedBox(),
                 loadingWidget: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: const [
@@ -247,17 +247,15 @@ class _StockListState extends State<StockList> {
                     //     hintText: 'Date',
                     //   ),
                     // ),
-                    Container(
-                      child: Row(
-                        children: [
-                          Text(selectedDate.toString()),
-                          ElevatedButton.icon(
-                            onPressed: () => _selectDate(context),
-                            icon: Icon(Icons.calendar_today),
-                            label: Text(''),
-                          ),
-                        ],
-                      ),
+                    Row(
+                      children: [
+                        Text(selectedDate.toString()),
+                        ElevatedButton.icon(
+                          onPressed: () => _selectDate(context),
+                          icon: const Icon(Icons.calendar_today),
+                          label: const Text(''),
+                        ),
+                      ],
                     ),
 
                     const SizedBox(

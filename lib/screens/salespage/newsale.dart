@@ -1,4 +1,3 @@
-import 'package:billingapp/model/product.dart';
 import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/provider/productprovider.dart';
 import 'package:billingapp/screens/salespage/salespayment.dart';
@@ -6,8 +5,6 @@ import 'package:cart_stepper/cart_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
-
-import '../stockpages/stocklist/stocklist.dart';
 
 class NewSale extends StatefulWidget {
   const NewSale({super.key});
@@ -48,12 +45,10 @@ class _NewSaleState extends State<NewSale> {
                   return await data;
                 },
                 itemBuilder: (context, dynamic s) {
-                  return Container(
-                    child: ListTile(
-                      leading: Icon(Icons.shopping_cart),
-                      title: Text(s.productName),
-                      subtitle: Text(s.price.toString()),
-                    ),
+                  return ListTile(
+                    leading: const Icon(Icons.shopping_cart),
+                    title: Text(s.productName),
+                    subtitle: Text(s.price.toString()),
                   );
                 },
                 onSuggestionSelected: (suggestion) {
@@ -71,7 +66,7 @@ class _NewSaleState extends State<NewSale> {
                 padding:
                     const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
                 child: ListTile(
-                  tileColor: Color.fromARGB(255, 228, 226, 226),
+                  tileColor: const Color.fromARGB(255, 228, 226, 226),
                   leading: Text((index + 1).toString()),
                   title: Text(
                       provider.cartDetails[index].item!.productName.toString()),
@@ -107,9 +102,9 @@ class _NewSaleState extends State<NewSale> {
                   onPressed: () {
                     provider.proceedToCart();
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: ((context) => SalesPayment())));
+                        builder: ((context) => const SalesPayment())));
                   },
-                  child: Text('submit'),
+                  child: const Text('submit'),
                 ),
               ),
             ),

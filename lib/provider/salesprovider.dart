@@ -24,8 +24,7 @@ class SalesProvider with ChangeNotifier {
         cartItems: cartitem,
         credit: credit,
         totalPrice: totalPrice,
-        uniqueId: Uuid().v4());
+        uniqueId: const Uuid().v4());
     _savedBills.add(newSale);
-    print(_savedBills);
   }
 }

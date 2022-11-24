@@ -1,5 +1,4 @@
 import 'package:billingapp/model/cart.dart';
-import 'package:billingapp/model/product.dart';
 
 class Sales {
   String? custId;

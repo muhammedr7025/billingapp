@@ -14,7 +14,7 @@ class CustomerProvider with ChangeNotifier {
         custName: customer.custName,
         credit: customer.credit,
         mobno: customer.mobno,
-        uniqueId: Uuid().v4());
+        uniqueId: const Uuid().v4());
     _savedCustomer.add(newCustomer);
     notifyListeners();
   }
