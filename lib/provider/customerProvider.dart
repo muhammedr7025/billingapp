@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 import '../model/customer.dart';
 
@@ -12,7 +13,8 @@ class CustomerProvider with ChangeNotifier {
     final newCustomer = Customer(
         custName: customer.custName,
         credit: customer.credit,
-        mobno: customer.mobno);
+        mobno: customer.mobno,
+        uniqueId: Uuid().v4());
     _savedCustomer.add(newCustomer);
     notifyListeners();
   }
@@ -31,5 +33,11 @@ class CustomerProvider with ChangeNotifier {
             element.mobno!.toString().toLowerCase().contains(keyWord))
         .toList();
     return filteredList;
+  }
+
+  Customer findCustomer(uid) {
+    final index =
+        _savedCustomer.indexWhere((element) => uid == element.uniqueId);
+    return _savedCustomer[index];
   }
 }

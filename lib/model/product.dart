@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 class Product with ChangeNotifier {
   String? productName;
+  String? uniqueId;
   String? productCode;
   String? stockDate;
   int? stockCount;
@@ -11,5 +12,6 @@ class Product with ChangeNotifier {
       this.productCode,
       this.stockCount,
       this.stockDate,
-      this.price});
+      this.price,
+      this.uniqueId});
 }

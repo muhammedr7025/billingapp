@@ -1,6 +1,7 @@
 import 'dart:ffi';
 
 import 'package:flutter/material.dart';
+import 'package:uuid/uuid.dart';
 
 import '../model/product.dart';
 
@@ -119,18 +120,20 @@ class ProductProvider with ChangeNotifier {
         productCode: product.productCode,
         price: product.price,
         stockCount: product.stockCount,
-        stockDate: product.stockDate));
+        stockDate: product.stockDate,
+        uniqueId: const Uuid().v4()));
     notifyListeners();
   }
 
   Future<void> editProduct(Product productOld, Product productNew) async {
     final index = _savedProduct.indexWhere((element) => productOld == element);
     _savedProduct[index] = Product(
-        productName: productNew.productName,
-        productCode: productNew.productCode,
-        price: productNew.price,
-        stockCount: productNew.stockCount,
-        stockDate: productNew.stockDate);
+      productName: productNew.productName,
+      productCode: productNew.productCode,
+      price: productNew.price,
+      stockCount: productNew.stockCount,
+      stockDate: productNew.stockDate,
+    );
     notifyListeners();
   }
 

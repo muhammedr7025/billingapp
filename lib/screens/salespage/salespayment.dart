@@ -2,6 +2,8 @@ import 'package:billingapp/constant.dart';
 import 'package:billingapp/model/customer.dart';
 import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/provider/customerprovider.dart';
+import 'package:billingapp/provider/salesprovider.dart';
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
@@ -20,6 +22,8 @@ class _SalesPaymentState extends State<SalesPayment> {
   double cash = 0;
   double credit = 0;
   double discount = 0;
+  late String custname;
+  String uid = 'null';
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -34,7 +38,6 @@ class _SalesPaymentState extends State<SalesPayment> {
   Widget build(BuildContext context) {
     final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-    String custname;
     TextEditingController txt = TextEditingController();
     Cartprovider provider = Provider.of<Cartprovider>(context);
     CustomerProvider providerCust = Provider.of<CustomerProvider>(context);
@@ -52,49 +55,13 @@ class _SalesPaymentState extends State<SalesPayment> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text(
-                      'Bill Amount   $billAmount',
+                      'Total Amount   $billAmount',
                       style: const TextStyle(fontSize: 25),
                     ),
                   ],
                 ),
                 const SizedBox(
                   height: 20,
-                ),
-                Form(
-                  key: _formKey,
-                  child: Column(
-                    children: <Widget>[
-                      TypeAheadFormField(
-                        textFieldConfiguration: TextFieldConfiguration(
-                            controller: txt,
-                            decoration: const InputDecoration(
-                              labelText: 'Select customer',
-                              labelStyle: TextStyle(fontSize: 25),
-                            )),
-                        suggestionsCallback: (pattern) {
-                          return providerCust.filterCustomer(pattern);
-                        },
-                        itemBuilder: (context, suggestion) {
-                          return ListTile(
-                            title: Text(suggestion.custName),
-                          );
-                        },
-                        transitionBuilder:
-                            (context, suggestionsBox, controller) {
-                          return suggestionsBox;
-                        },
-                        onSuggestionSelected: (suggestion) {
-                          txt.text = suggestion.custName;
-                        },
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return 'Please select a customer';
-                          }
-                        },
-                        onSaved: (newValue) => custname = newValue!,
-                      ),
-                    ],
-                  ),
                 ),
                 const SizedBox(
                   height: 20,
@@ -115,7 +82,7 @@ class _SalesPaymentState extends State<SalesPayment> {
                               discount = double.tryParse(value) ?? 0;
 
                               amount = billAmount - discount;
-                              credit = amount;
+                              credit = amount - creditGetting;
                             });
                           },
                         ))
@@ -173,7 +140,18 @@ class _SalesPaymentState extends State<SalesPayment> {
                 const SizedBox(
                   height: 20,
                 ),
-                ElevatedButton(onPressed: (() {}), child: Text('submit'))
+                ElevatedButton(
+                    onPressed: (() {
+                      Provider.of<SalesProvider>(context, listen: false)
+                          .createSale(
+                              cartitem: provider.cartDetails,
+                              totalPrice: billAmount,
+                              discount: discount,
+                              credit: credit,
+                              finalPrice: amount,
+                              customer: providerCust.findCustomer(uid));
+                    }),
+                    child: Text('submit'))
               ],
             ),
           ),

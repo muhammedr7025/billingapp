@@ -18,6 +18,21 @@ class StockList extends StatefulWidget {
 }
 
 class _StockListState extends State<StockList> {
+  DateTime selectedDate = DateTime.now();
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<ProductProvider>(context);
@@ -210,28 +225,41 @@ class _StockListState extends State<StockList> {
                     const SizedBox(
                       height: 5,
                     ),
-                    TextFormField(
-                      controller: date,
-                      keyboardType: TextInputType.datetime,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 2, color: Colors.blueGrey),
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 3, color: Colors.redAccent),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Colors.black),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        hintText: 'Date',
+                    // TextFormField(
+                    //   controller: date,
+                    //   keyboardType: TextInputType.datetime,
+                    //   decoration: InputDecoration(
+                    //     focusedBorder: OutlineInputBorder(
+                    //       borderSide: const BorderSide(
+                    //           width: 2, color: Colors.blueGrey),
+                    //       borderRadius: BorderRadius.circular(15.0),
+                    //     ),
+                    //     errorBorder: OutlineInputBorder(
+                    //       borderSide: const BorderSide(
+                    //           width: 3, color: Colors.redAccent),
+                    //       borderRadius: BorderRadius.circular(25.0),
+                    //     ),
+                    //     enabledBorder: OutlineInputBorder(
+                    //       borderSide:
+                    //           const BorderSide(width: 1, color: Colors.black),
+                    //       borderRadius: BorderRadius.circular(25.0),
+                    //     ),
+                    //     hintText: 'Date',
+                    //   ),
+                    // ),
+                    Container(
+                      child: Row(
+                        children: [
+                          Text(selectedDate.toString()),
+                          ElevatedButton.icon(
+                            onPressed: () => _selectDate(context),
+                            icon: Icon(Icons.calendar_today),
+                            label: Text(''),
+                          ),
+                        ],
                       ),
                     ),
+
                     const SizedBox(
                       height: 5,
                     ),
