@@ -92,6 +92,16 @@ class _CustomerSingleViewState extends State<CustomerSingleView> {
               ),
               width: double.infinity,
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Align(
+                alignment: Alignment.bottomRight,
+                child: FloatingActionButton(
+                  backgroundColor: Colors.black,
+                  onPressed: () {},
+                  child: const Icon(Icons.shopping_cart_sharp),
+                )),
           )
         ],
       ),

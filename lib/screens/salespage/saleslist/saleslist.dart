@@ -101,20 +101,18 @@ class _SalesListState extends State<SalesList> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 15.0),
+            padding: const EdgeInsets.all(10.0),
             child: Align(
-              alignment: Alignment.center,
-              child: ElevatedButton(
-                style:
-                    ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                backgroundColor: Colors.black,
                 onPressed: (() {
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: ((context) => const NewSale())));
                 }),
                 child: const Text(
-                  'New Sale',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                  '+',
+                  style: TextStyle(color: Colors.white, fontSize: 25),
                 ),
               ),
             ),

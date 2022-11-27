@@ -119,12 +119,11 @@ class _StockListState extends State<StockList> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 15.0),
+            padding: const EdgeInsets.all(15.0),
             child: Align(
-              alignment: Alignment.center,
-              child: ElevatedButton(
-                style:
-                    ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                backgroundColor: Colors.black,
                 onPressed: option == 'product'
                     ? (() {
                         productAdd(
@@ -139,9 +138,8 @@ class _StockListState extends State<StockList> {
                       },
                 child: option == 'product'
                     ? const Text(
-                        'Add Product',
-                        style: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.bold),
+                        '+',
+                        style: TextStyle(color: Colors.white, fontSize: 20),
                       )
                     : const Text(
                         'Submit',

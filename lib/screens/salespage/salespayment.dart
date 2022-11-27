@@ -62,17 +62,17 @@ class _SalesPaymentState extends State<SalesPayment> {
                   height: 20,
                 ),
                 Form(
-                  key: this._formKey,
+                  key: _formKey,
                   child: Padding(
-                    padding: EdgeInsets.all(32.0),
+                    padding: const EdgeInsets.all(32.0),
                     child: Column(
                       children: <Widget>[
-                        Text('select customer?'),
+                        const Text('select customer?'),
                         TypeAheadFormField(
                           textFieldConfiguration: TextFieldConfiguration(
                               controller: _typeAheadController,
                               decoration:
-                                  InputDecoration(labelText: 'Customer')),
+                                  const InputDecoration(labelText: 'Customer')),
                           suggestionsCallback: (pattern) {
                             return providerCust.filterCustomer(pattern);
                           },
@@ -88,7 +88,6 @@ class _SalesPaymentState extends State<SalesPayment> {
                           onSuggestionSelected: (suggestion) {
                             _typeAheadController.text = suggestion.custName!;
                             uid = suggestion.uniqueId;
-                            print(uid);
                           },
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -97,15 +96,14 @@ class _SalesPaymentState extends State<SalesPayment> {
                           },
                           onSaved: (value) => _selectedCity = value!,
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 10.0,
                         ),
                         MaterialButton(
-                          child: Text('Submit'),
+                          child: const Text('Submit'),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               _formKey.currentState!.save();
-                              print('warning');
                             }
                           },
                         )
@@ -192,12 +190,20 @@ class _SalesPaymentState extends State<SalesPayment> {
                     onPressed: (() {
                       Provider.of<SalesProvider>(context, listen: false)
                           .createSale(
-                              cartitem: provider.cartDetails,
-                              totalPrice: billAmount,
-                              discount: discount,
-                              credit: credit,
-                              finalPrice: amount,
-                              customer: providerCust.findCustomer(uid));
+                        cartitem: provider.cartDetails,
+                        totalPrice: billAmount,
+                        discount: discount,
+                        credit: credit,
+                        finalPrice: amount,
+                        customer: providerCust.findCustomer(uid),
+                        byCash: amount - credit,
+                      );
+                      providerCust.newSaleAdded(
+                          customer: providerCust.findCustomer(
+                            uid,
+                          ),
+                          newCredit: credit,
+                          price: amount);
                     }),
                     child: const Text('submit'))
               ],

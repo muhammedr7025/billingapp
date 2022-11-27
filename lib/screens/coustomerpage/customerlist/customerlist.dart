@@ -96,21 +96,19 @@ class _CustomerListState extends State<CustomerList> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 15.0),
+            padding: const EdgeInsets.all(15.0),
             child: Align(
-              alignment: Alignment.center,
-              child: ElevatedButton(
-                style:
-                    ElevatedButton.styleFrom(backgroundColor: Colors.blueGrey),
+              alignment: Alignment.bottomRight,
+              child: FloatingActionButton(
+                backgroundColor: Colors.black,
                 onPressed: (() {
                   customerAdd(
                     context,
                   );
                 }),
                 child: const Text(
-                  'Add Customer',
-                  style: TextStyle(
-                      color: Colors.white, fontWeight: FontWeight.bold),
+                  '+',
+                  style: TextStyle(color: Colors.white, fontSize: 20),
                 ),
               ),
             ),

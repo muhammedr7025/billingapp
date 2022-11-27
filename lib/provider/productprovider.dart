@@ -142,4 +142,6 @@ class ProductProvider with ChangeNotifier {
         .toList();
     return filteredList;
   }
+
+  void updateProductCount() {}
 }

@@ -1,17 +1,17 @@
 import 'package:billingapp/model/cart.dart';
 
 class Sales {
-  DateTime? date;
   String? custId;
   String? uniqueId;
   String? custName;
   String? billNo;
   List<Cart>? cartItems = [];
-  String? dateOfPurchase;
+  DateTime? dateOfSale;
   double? totalPrice;
   double? byCash;
   double? credit;
   double? salePrice;
+  double? discount;
   Sales(
       {this.custName,
       this.custId,
@@ -19,7 +19,9 @@ class Sales {
       this.cartItems,
       this.byCash,
       this.credit,
-      this.dateOfPurchase,
+      this.dateOfSale,
       this.totalPrice,
-      this.uniqueId});
+      this.uniqueId,
+      this.salePrice,
+      this.discount});
 }

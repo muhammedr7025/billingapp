@@ -17,14 +17,20 @@ class SalesProvider with ChangeNotifier {
       required double discount,
       required double credit,
       required double finalPrice,
-      required Customer customer}) {
+      required Customer customer,
+      required double byCash}) {
     Sales newSale = Sales(
         billNo: _savedBills.length.toString(),
         custName: customer.custName,
         cartItems: cartitem,
         credit: credit,
         totalPrice: totalPrice,
-        uniqueId: const Uuid().v4());
+        uniqueId: const Uuid().v4(),
+        byCash: byCash,
+        salePrice: totalPrice,
+        dateOfSale: DateTime.now(),
+        custId: customer.uniqueId,
+        discount: discount);
     _savedBills.add(newSale);
   }
 }

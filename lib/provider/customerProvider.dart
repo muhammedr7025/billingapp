@@ -1,4 +1,3 @@
-import 'package:billingapp/model/cart.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import '../model/customer.dart';
@@ -41,7 +40,18 @@ class CustomerProvider with ChangeNotifier {
   Customer findCustomer(uid) {
     final index =
         _savedCustomer.indexWhere((element) => uid == element.uniqueId);
-    print(_savedCustomer[index].custName);
     return _savedCustomer[index];
+  }
+
+  Future<void> newSaleAdded(
+      {required Customer customer,
+      required double? newCredit,
+      required double price}) async {
+    final index = _savedCustomer.indexWhere((element) => customer == element);
+    _savedCustomer[index].credit = (_savedCustomer[index].credit)! + newCredit!;
+    _savedCustomer[index].totalPurchasePrice =
+        (_savedCustomer[index].totalPurchasePrice) + price;
+    _savedCustomer[index].totalSale++;
+    notifyListeners();
   }
 }
