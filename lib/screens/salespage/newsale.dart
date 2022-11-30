@@ -6,8 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
 
+import '../../model/customer.dart';
+
 class NewSale extends StatefulWidget {
-  const NewSale({super.key});
+  String? option;
+  Customer? cust;
+  NewSale({super.key, this.option, this.cust});
 
   @override
   State<NewSale> createState() => _NewSaleState();
@@ -97,16 +101,15 @@ class _NewSaleState extends State<NewSale> {
             width: double.infinity,
             child: Center(
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    provider.proceedToCart();
-                    Navigator.of(context).push(MaterialPageRoute(
-                        builder: ((context) => const SalesPayment())));
-                  },
-                  child: const Text('submit'),
-                ),
-              ),
+                  padding: const EdgeInsets.all(8.0),
+                  child: ElevatedButton(
+                    onPressed: () {
+                      provider.proceedToCart();
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: ((context) => const SalesPayment())));
+                    },
+                    child: const Text('submit'),
+                  )),
             ),
           )
         ],

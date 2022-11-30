@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import '../../constant.dart';
 import '../../model/customer.dart';
 import '../../provider/customerprovider.dart';
+import '../salespage/newsale.dart';
 
 class CustomerSingleView extends StatefulWidget {
   final Customer customer;
@@ -99,7 +100,13 @@ class _CustomerSingleViewState extends State<CustomerSingleView> {
                 alignment: Alignment.bottomRight,
                 child: FloatingActionButton(
                   backgroundColor: Colors.black,
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: ((context) => NewSale(
+                              option: 'customer',
+                              cust: widget.customer,
+                            ))));
+                  },
                   child: const Icon(Icons.shopping_cart_sharp),
                 )),
           )

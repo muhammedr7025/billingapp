@@ -46,7 +46,8 @@ dependencies:
   flutter_typeahead: ^4.1.1
   uuid: ^3.0.7
   dropdown_search: ^5.0.3
-  syncfusion_flutter_pdf: ^20.3.58
+  intl: ^0.17.0
+  pdf: ^3.8.4
 dev_dependencies:
   flutter_test:
     sdk: flutter

@@ -54,4 +54,6 @@ class CustomerProvider with ChangeNotifier {
     _savedCustomer[index].totalSale++;
     notifyListeners();
   }
+
+  void customerCart(Customer customer) {}
 }

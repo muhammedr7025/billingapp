@@ -1,6 +1,7 @@
 import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/screens/salespage/salespayment.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 import 'package:searchable_listview/searchable_listview.dart';
 
@@ -164,185 +165,187 @@ class _StockListState extends State<StockList> {
           final TextEditingController stock = TextEditingController();
 
           final TextEditingController price = TextEditingController();
-          return AlertDialog(
-            backgroundColor: const Color.fromARGB(255, 210, 207, 207),
-            title: const Center(child: Text("Add Stock")),
-            content: SingleChildScrollView(
-              child: SizedBox(
-                width: double.infinity,
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    TextFormField(
-                      controller: name,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 2, color: Colors.blueGrey),
-                          borderRadius: BorderRadius.circular(15.0),
+          return StatefulBuilder(builder: (context, setState) {
+            return AlertDialog(
+              backgroundColor: const Color.fromARGB(255, 210, 207, 207),
+              title: const Center(child: Text("Add Stock")),
+              content: SingleChildScrollView(
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextFormField(
+                        controller: name,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 2, color: Colors.blueGrey),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 3, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(width: 1, color: Colors.black),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          hintText: 'Product name',
                         ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 3, color: Colors.redAccent),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Colors.black),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        hintText: 'Product name',
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    TextFormField(
-                      controller: code,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 2, color: Colors.blueGrey),
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 3, color: Colors.redAccent),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Colors.black),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        hintText: 'Product code',
+                      const SizedBox(
+                        height: 5,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    // TextFormField(
-                    //   controller: date,
-                    //   keyboardType: TextInputType.datetime,
-                    //   decoration: InputDecoration(
-                    //     focusedBorder: OutlineInputBorder(
-                    //       borderSide: const BorderSide(
-                    //           width: 2, color: Colors.blueGrey),
-                    //       borderRadius: BorderRadius.circular(15.0),
-                    //     ),
-                    //     errorBorder: OutlineInputBorder(
-                    //       borderSide: const BorderSide(
-                    //           width: 3, color: Colors.redAccent),
-                    //       borderRadius: BorderRadius.circular(25.0),
-                    //     ),
-                    //     enabledBorder: OutlineInputBorder(
-                    //       borderSide:
-                    //           const BorderSide(width: 1, color: Colors.black),
-                    //       borderRadius: BorderRadius.circular(25.0),
-                    //     ),
-                    //     hintText: 'Date',
-                    //   ),
-                    // ),
-                    Row(
-                      children: [
-                        Text(selectedDate.toString()),
-                        ElevatedButton.icon(
-                          onPressed: () {
-                            var picked = _selectDate(context);
-                            picked.then((value) {
-                              setState(() {
-                                selectedDate = value;
+                      TextFormField(
+                        controller: code,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 2, color: Colors.blueGrey),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 3, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(width: 1, color: Colors.black),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          hintText: 'Product code',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      // TextFormField(
+                      //   controller: date,
+                      //   keyboardType: TextInputType.datetime,
+                      //   decoration: InputDecoration(
+                      //     focusedBorder: OutlineInputBorder(
+                      //       borderSide: const BorderSide(
+                      //           width: 2, color: Colors.blueGrey),
+                      //       borderRadius: BorderRadius.circular(15.0),
+                      //     ),
+                      //     errorBorder: OutlineInputBorder(
+                      //       borderSide: const BorderSide(
+                      //           width: 3, color: Colors.redAccent),
+                      //       borderRadius: BorderRadius.circular(25.0),
+                      //     ),
+                      //     enabledBorder: OutlineInputBorder(
+                      //       borderSide:
+                      //           const BorderSide(width: 1, color: Colors.black),
+                      //       borderRadius: BorderRadius.circular(25.0),
+                      //     ),
+                      //     hintText: 'Date',
+                      //   ),
+                      // ),
+                      Row(
+                        children: [
+                          Text(DateFormat("dd-MM-yyyy").format(selectedDate)),
+                          ElevatedButton.icon(
+                            onPressed: () {
+                              var picked = _selectDate(context);
+                              picked.then((value) {
+                                setState(() {
+                                  selectedDate = value;
+                                });
                               });
-                            });
-                          },
-                          icon: const Icon(Icons.calendar_today),
-                          label: Text(selectedDate.toString()),
-                        ),
-                      ],
-                    ),
+                            },
+                            icon: const Icon(Icons.calendar_today),
+                            label: Text(''),
+                          ),
+                        ],
+                      ),
 
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    TextFormField(
-                      controller: stock,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 2, color: Colors.blueGrey),
-                          borderRadius: BorderRadius.circular(15.0),
-                        ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 3, color: Colors.redAccent),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Colors.black),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        hintText: 'No of stocks',
+                      const SizedBox(
+                        height: 5,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 5,
-                    ),
-                    TextFormField(
-                      controller: price,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 2, color: Colors.blueGrey),
-                          borderRadius: BorderRadius.circular(15.0),
+                      TextFormField(
+                        controller: stock,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 2, color: Colors.blueGrey),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 3, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(width: 1, color: Colors.black),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          hintText: 'No of stocks',
                         ),
-                        errorBorder: OutlineInputBorder(
-                          borderSide: const BorderSide(
-                              width: 3, color: Colors.redAccent),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderSide:
-                              const BorderSide(width: 1, color: Colors.black),
-                          borderRadius: BorderRadius.circular(25.0),
-                        ),
-                        hintText: 'Price',
                       ),
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 5,
+                      ),
+                      TextFormField(
+                        controller: price,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 2, color: Colors.blueGrey),
+                            borderRadius: BorderRadius.circular(15.0),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                                width: 3, color: Colors.redAccent),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide:
+                                const BorderSide(width: 1, color: Colors.black),
+                            borderRadius: BorderRadius.circular(25.0),
+                          ),
+                          hintText: 'Price',
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-            actions: [
-              Center(
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.blueGrey),
-                  child: const Text("Submit"),
-                  onPressed: () {
-                    Product toSave = Product(
-                        productName: name.text,
-                        productCode: code.text,
-                        stockDate: date.text,
-                        stockCount: int.parse(stock.text),
-                        price: double.parse(price.text));
-                    provider.saveProduct(toSave);
-                    name.clear();
-                    code.clear();
-                    date.clear();
-                    stock.clear();
-                    price.clear();
-                    Navigator.of(context).pop();
-                    setState(() {});
-                  },
+              actions: [
+                Center(
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueGrey),
+                    child: const Text("Submit"),
+                    onPressed: () {
+                      Product toSave = Product(
+                          productName: name.text,
+                          productCode: code.text,
+                          stockDate: date.text,
+                          stockCount: int.parse(stock.text),
+                          price: double.parse(price.text));
+                      provider.saveProduct(toSave);
+                      name.clear();
+                      code.clear();
+                      date.clear();
+                      stock.clear();
+                      price.clear();
+                      Navigator.of(context).pop();
+                      setState(() {});
+                    },
+                  ),
                 ),
-              ),
-            ],
-          );
+              ],
+            );
+          });
         },
       );
 }

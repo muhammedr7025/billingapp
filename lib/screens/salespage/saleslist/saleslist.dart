@@ -1,5 +1,6 @@
 import 'package:billingapp/model/sales.dart';
 import 'package:billingapp/provider/salesprovider.dart';
+import 'package:billingapp/screens/invoice/invoice.dart';
 import 'package:billingapp/screens/salespage/newsale.dart';
 import 'package:billingapp/screens/salespage/saleslist/salessitem.dart';
 import 'package:flutter/material.dart';
@@ -108,7 +109,9 @@ class _SalesListState extends State<SalesList> {
                 backgroundColor: Colors.black,
                 onPressed: (() {
                   Navigator.of(context).push(MaterialPageRoute(
-                      builder: ((context) => const NewSale())));
+                      builder: ((context) => NewSale(
+                            option: 'new',
+                          ))));
                 }),
                 child: const Text(
                   '+',

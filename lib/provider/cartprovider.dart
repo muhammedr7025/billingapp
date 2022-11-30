@@ -35,14 +35,6 @@ class Cartprovider with ChangeNotifier {
   }
 
   void proceedToCart() {
-    // for (int i = 0; i < _cart.length; i++) {
-    //   if (_cart[i].itemCount == 0) {
-    //     _cart.removeAt(i);
-
-    //     i--;
-    //   }
-    //   notifyListeners();
-    // }
     totalBillPrice = 0;
     for (int i = 0; i < _cart.length; i++) {
       totalBillPrice = totalBillPrice + _cart[i].totalPrice;
