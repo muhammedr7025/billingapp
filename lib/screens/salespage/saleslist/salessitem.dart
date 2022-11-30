@@ -1,6 +1,6 @@
 import 'package:billingapp/model/sales.dart';
 import 'package:flutter/material.dart';
-
+import 'package:pdf/widgets.dart' as pw;
 import '../../invoice/invoice.dart';
 
 class SalesItem extends StatelessWidget {
@@ -12,10 +12,10 @@ class SalesItem extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(3.0),
       child: InkWell(
-        onTap: () => Navigator.of(context).push(MaterialPageRoute(
-            builder: ((context) => Invoice(
-                  bill: bills,
-                )))),
+        onTap: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: ((context) => Invoice(bill: bills))));
+        },
         child: Container(
           height: 60,
           decoration: BoxDecoration(
