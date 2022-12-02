@@ -1,14 +1,11 @@
 import 'package:billingapp/model/sales.dart';
 import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/provider/salesprovider.dart';
-import 'package:billingapp/screens/invoice/invoice.dart';
 import 'package:billingapp/screens/salespage/newsale.dart';
 import 'package:billingapp/screens/salespage/saleslist/salessitem.dart';
 import 'package:flutter/material.dart';
-
 import 'package:provider/provider.dart';
 import 'package:searchable_listview/searchable_listview.dart';
-
 import '../../../widget/emptyview.dart';
 
 class SalesList extends StatefulWidget {
