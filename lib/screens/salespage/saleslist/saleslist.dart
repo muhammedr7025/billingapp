@@ -1,4 +1,5 @@
 import 'package:billingapp/model/sales.dart';
+import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/provider/salesprovider.dart';
 import 'package:billingapp/screens/invoice/invoice.dart';
 import 'package:billingapp/screens/salespage/newsale.dart';
@@ -108,6 +109,7 @@ class _SalesListState extends State<SalesList> {
               child: FloatingActionButton(
                 backgroundColor: Colors.black,
                 onPressed: (() {
+                  Provider.of<Cartprovider>(context, listen: false).clearCart();
                   Navigator.of(context).push(MaterialPageRoute(
                       builder: ((context) => NewSale(
                             option: 'new',

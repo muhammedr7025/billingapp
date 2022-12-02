@@ -2,6 +2,7 @@ import 'package:billingapp/constant.dart';
 import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/provider/customerprovider.dart';
 import 'package:billingapp/provider/salesprovider.dart';
+import 'package:billingapp/screens/homepage/homepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
@@ -99,14 +100,6 @@ class _SalesPaymentState extends State<SalesPayment> {
                         const SizedBox(
                           height: 10.0,
                         ),
-                        MaterialButton(
-                          child: const Text('Submit'),
-                          onPressed: () {
-                            if (_formKey.currentState!.validate()) {
-                              _formKey.currentState!.save();
-                            }
-                          },
-                        )
                       ],
                     ),
                   ),
@@ -204,6 +197,9 @@ class _SalesPaymentState extends State<SalesPayment> {
                           ),
                           newCredit: credit,
                           price: amount);
+
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: ((context) => HomePage())));
                     }),
                     child: const Text('submit'))
               ],

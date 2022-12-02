@@ -34,6 +34,11 @@ class Cartprovider with ChangeNotifier {
     notifyListeners();
   }
 
+  List<Cart> cloneCart() {
+    final List<Cart> cloneCart = _cart;
+    return cloneCart;
+  }
+
   void proceedToCart() {
     totalBillPrice = 0;
     for (int i = 0; i < _cart.length; i++) {
@@ -45,5 +50,6 @@ class Cartprovider with ChangeNotifier {
 
   void clearCart() {
     _cart.clear();
+    notifyListeners();
   }
 }

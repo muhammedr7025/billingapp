@@ -106,14 +106,14 @@ class Invoice extends StatelessWidget {
                     flex: 2,
                     child: pw.Text(
                       'Total price',
-                      textAlign: pw.TextAlign.center,
+                      textAlign: pw.TextAlign.left,
                     ),
                   ),
                   pw.Expanded(
                     flex: 4,
                     child: pw.Text(
                       bill.totalPrice.toString(),
-                      textAlign: pw.TextAlign.center,
+                      textAlign: pw.TextAlign.right,
                     ),
                   )
                 ],
@@ -124,14 +124,14 @@ class Invoice extends StatelessWidget {
                     flex: 2,
                     child: pw.Text(
                       'Discount price',
-                      textAlign: pw.TextAlign.center,
+                      textAlign: pw.TextAlign.left,
                     ),
                   ),
                   pw.Expanded(
                     flex: 4,
                     child: pw.Text(
                       bill.discount.toString(),
-                      textAlign: pw.TextAlign.center,
+                      textAlign: pw.TextAlign.right,
                     ),
                   )
                 ],
@@ -142,14 +142,14 @@ class Invoice extends StatelessWidget {
                     flex: 2,
                     child: pw.Text(
                       'Sale price',
-                      textAlign: pw.TextAlign.center,
+                      textAlign: pw.TextAlign.left,
                     ),
                   ),
                   pw.Expanded(
                     flex: 4,
                     child: pw.Text(
                       bill.salePrice.toString(),
-                      textAlign: pw.TextAlign.center,
+                      textAlign: pw.TextAlign.right,
                     ),
                   )
                 ],
@@ -159,11 +159,11 @@ class Invoice extends StatelessWidget {
                 children: [
                   pw.Text(
                     'By cash',
-                    textAlign: pw.TextAlign.center,
+                    textAlign: pw.TextAlign.left,
                   ),
                   pw.Text(
                     '${bill.salePrice! - bill.credit!}',
-                    textAlign: pw.TextAlign.center,
+                    textAlign: pw.TextAlign.right,
                   ),
                 ],
               ),
@@ -173,14 +173,14 @@ class Invoice extends StatelessWidget {
                     flex: 2,
                     child: pw.Text(
                       'Credit',
-                      textAlign: pw.TextAlign.center,
+                      textAlign: pw.TextAlign.left,
                     ),
                   ),
                   pw.Expanded(
                     flex: 4,
                     child: pw.Text(
                       bill.credit.toString(),
-                      textAlign: pw.TextAlign.center,
+                      textAlign: pw.TextAlign.right,
                     ),
                   )
                 ],
