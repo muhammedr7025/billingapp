@@ -2,7 +2,7 @@ import 'package:billingapp/model/product.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreService {
-  FirebaseFirestore _db = FirebaseFirestore.instance;
+  final FirebaseFirestore _db = FirebaseFirestore.instance;
 
   Future saveProduct(Product product) {
     return _db
@@ -11,9 +11,11 @@ class FirestoreService {
         .set(product.toMap());
   }
 
-  Stream getProducts() {
-    return _db.collection('products').snapshots().map((snapshot) =>
-        snapshot.docs.map((document) => Product.fromMap(document.data())));
+  Stream<List<Product>> getProducts() {
+    return _db.collection('products').snapshots().map((snapshot) => snapshot
+        .docs
+        .map((document) => Product.fromMap(document.data()))
+        .toList());
   }
 
   Future removeProduct(String productId) {
