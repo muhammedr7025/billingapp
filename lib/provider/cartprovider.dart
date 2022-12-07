@@ -14,7 +14,8 @@ class Cartprovider with ChangeNotifier {
     final index = _cart.indexWhere((element) => product == element.item);
 
     if (index == -1) {
-      _cart.add(Cart(item: product, itemCount: itemCount));
+      _cart.add(
+          Cart(item: product, itemCount: itemCount, totalPrice: totalAmoount));
       notifyListeners();
     } else {
       _cart[index].itemCount = itemCount;

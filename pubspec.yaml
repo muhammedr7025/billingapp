@@ -50,6 +50,7 @@ dependencies:
   pdf: ^3.8.4
   printing: ^5.9.3
   firebase_core: ^2.3.0
+  cloud_firestore: ^4.1.0
 dev_dependencies:
   flutter_test:
     sdk: flutter

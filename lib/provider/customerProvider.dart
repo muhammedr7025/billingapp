@@ -50,7 +50,7 @@ class CustomerProvider with ChangeNotifier {
     final index = _savedCustomer.indexWhere((element) => customer == element);
     _savedCustomer[index].credit = (_savedCustomer[index].credit)! + newCredit!;
     _savedCustomer[index].totalPurchasePrice =
-        (_savedCustomer[index].totalPurchasePrice) + price;
+        (_savedCustomer[index].totalPurchasePrice!) + price;
     _savedCustomer[index].totalSale++;
     notifyListeners();
   }
