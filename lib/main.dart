@@ -2,12 +2,15 @@ import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/provider/customerprovider.dart';
 import 'package:billingapp/provider/productprovider.dart';
 import 'package:billingapp/provider/salesprovider.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'screens/homepage/homepage.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
   runApp(const MyApp());
 }
 
