@@ -49,6 +49,7 @@ dependencies:
   intl: ^0.17.0
   pdf: ^3.8.4
   printing: ^5.9.3
+  firebase_core: ^2.3.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
