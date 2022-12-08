@@ -222,9 +222,10 @@ class _CustomerListState extends State<CustomerList> {
                 child: const Text("Submit"),
                 onPressed: () {
                   Customer cust = Customer(
-                      custName: name.text,
-                      credit: double.tryParse(credit.text),
-                      mobno: int.tryParse(phoneNo.text));
+                    custName: name.text,
+                    credit: double.tryParse(credit.text),
+                    mobno: int.tryParse(phoneNo.text),
+                  );
                   provider.saveCustomer(cust);
                   name.clear();
                   phoneNo.clear();

@@ -1,16 +1,18 @@
+import 'package:billingapp/provider/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 import '../model/customer.dart';
 
 class CustomerProvider with ChangeNotifier {
-  final List<Customer> _savedCustomer = [
-    Customer(
-        custName: 'Muhammed r',
-        mobno: 7025662019,
-        credit: 0,
-        uniqueId: const Uuid().v4())
-  ];
-  List<Customer> get savedCustomerList => _savedCustomer;
+  List<Customer> _savedCustomer = [];
+  final db = FirestoreService();
+  Future<List<Customer>> get savedCustomerList async {
+    await db.getCustomers().listen((event) {
+      _savedCustomer = event;
+    });
+    return _savedCustomer;
+  }
+
   void saveCustomer(Customer customer) {
     final newCustomer = Customer(
         custName: customer.custName,
@@ -18,6 +20,7 @@ class CustomerProvider with ChangeNotifier {
         mobno: customer.mobno,
         uniqueId: const Uuid().v4());
     _savedCustomer.add(newCustomer);
+    db.saveCustomer(newCustomer);
     notifyListeners();
   }
 
