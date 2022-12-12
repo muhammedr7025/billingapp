@@ -9,12 +9,11 @@ import '../model/product.dart';
 class ProductProvider with ChangeNotifier {
   final db = FirestoreService();
   List<Product> _savedProduct = [];
-  Future<List<Product>> get savedProductList async {
-    db.getProducts().listen((event) {
-      _savedProduct = event;
-      log(event.toString());
-    });
-    return _savedProduct;
+  Stream<List<Product>> get savedProductList {
+    // var list;
+    return db.getProducts();
+
+    // return list;
   }
 
   Future<void> saveProduct(Product product) async {
@@ -39,6 +38,7 @@ class ProductProvider with ChangeNotifier {
       stockCount: productNew.stockCount,
       stockDate: productNew.stockDate,
     );
+    db.editProducts(productNew, productOld.uniqueId!);
     notifyListeners();
   }
 

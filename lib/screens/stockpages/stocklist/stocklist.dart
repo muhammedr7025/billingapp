@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/screens/salespage/salespayment.dart';
 import 'package:flutter/material.dart';
@@ -20,6 +22,8 @@ class StockList extends StatefulWidget {
 
 class _StockListState extends State<StockList> {
   DateTime selectedDate = DateTime.now();
+  List<Product> datas = [];
+  ProductProvider? provider;
   Future<DateTime> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
         context: context,
@@ -35,10 +39,16 @@ class _StockListState extends State<StockList> {
   }
 
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final provider = Provider.of<ProductProvider>(context);
-    final datas = provider.savedProductList;
+    provider = Provider.of<ProductProvider>(context);
+    provider!.savedProductList.listen((value) => datas = value);
     final String? option = widget.option;
+    log(datas.toString());
     return Container(
       color: Colors.grey,
       width: double.infinity,
@@ -52,7 +62,7 @@ class _StockListState extends State<StockList> {
                 onPaginate: () async {
                   await Future.delayed(const Duration(milliseconds: 100));
                   setState(() {
-                    provider.savedProductList;
+                    datas;
                   });
                 },
                 builder: (Product product) => option == 'product'

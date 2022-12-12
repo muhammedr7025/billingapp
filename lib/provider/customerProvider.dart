@@ -6,11 +6,8 @@ import '../model/customer.dart';
 class CustomerProvider with ChangeNotifier {
   List<Customer> _savedCustomer = [];
   final db = FirestoreService();
-  Future<List<Customer>> get savedCustomerList async {
-    await db.getCustomers().listen((event) {
-      _savedCustomer = event;
-    });
-    return _savedCustomer;
+  Stream<List<Customer>> getCustomerList() {
+    return db.getCustomers();
   }
 
   void saveCustomer(Customer customer) {

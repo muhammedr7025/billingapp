@@ -41,10 +41,7 @@ class FirestoreService {
     return _db.collection('products').doc(productId).delete();
   }
 
-  Future editProducts(Product product) {
-    return _db
-        .collection('products')
-        .doc(product.uniqueId)
-        .update(product.toMap());
+  Future editProducts(Product product, String uid) {
+    return _db.collection('products').doc(uid).update(product.toMap());
   }
 }
