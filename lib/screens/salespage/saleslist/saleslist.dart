@@ -18,10 +18,13 @@ class SalesList extends StatefulWidget {
 }
 
 class _SalesListState extends State<SalesList> {
+  List<Sales> datas = [];
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<SalesProvider>(context);
-    final datas = provider.savedBillList;
+    provider.savedBillList.listen((event) {
+      datas = event;
+    });
     return SizedBox(
       width: double.infinity,
       child: Column(

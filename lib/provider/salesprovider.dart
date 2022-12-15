@@ -2,13 +2,16 @@ import 'package:billingapp/model/customer.dart';
 import 'package:billingapp/model/sales.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
+import 'package:billingapp/provider/firestore_service.dart';
 
 import '../model/cart.dart';
 
 class SalesProvider with ChangeNotifier {
+  final db = FirestoreService();
+
   final List<Sales> _savedBills = [];
-  List<Sales> get savedBillList {
-    return _savedBills;
+  Stream<List<Sales>> get savedBillList {
+    return db.getSales();
   }
 
   void createSale(
@@ -32,5 +35,6 @@ class SalesProvider with ChangeNotifier {
         custId: customer.uniqueId,
         discount: discount);
     _savedBills.add(newSale);
+    db.saveSale(newSale);
   }
 }

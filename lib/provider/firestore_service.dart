@@ -1,5 +1,6 @@
 import 'package:billingapp/model/customer.dart';
 import 'package:billingapp/model/product.dart';
+import 'package:billingapp/model/sales.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class FirestoreService {
@@ -12,11 +13,29 @@ class FirestoreService {
         .set(product.toMap());
   }
 
+  Future saveSale(Sales sale) {
+    return _db.collection('sales').doc(sale.uniqueId).set(sale.toMap());
+  }
+
+  Stream<List<Sales>> getSales() {
+    return _db.collection('sales').snapshots().map((snapshot) => snapshot.docs
+        .map((document) => Sales.fromMap(document.data()))
+        .toList());
+  }
+
   Stream<List<Product>> getProducts() {
     return _db.collection('products').snapshots().map((snapshot) => snapshot
         .docs
         .map((document) => Product.fromMap(document.data()))
         .toList());
+  }
+
+  List<Product> filterProduct(String keyword, List<Product> product) {
+    List<Product> filteredList = product
+        .where(
+            (element) => element.productName!.toLowerCase().contains(keyword))
+        .toList();
+    return filteredList;
   }
 
   Future removeProduct(String productId) {

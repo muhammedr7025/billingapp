@@ -257,22 +257,35 @@ class _StockListState extends State<StockList> {
                       //     hintText: 'Date',
                       //   ),
                       // ),
-                      Row(
-                        children: [
-                          Text(DateFormat("dd-MM-yyyy").format(selectedDate)),
-                          ElevatedButton.icon(
-                            onPressed: () {
-                              var picked = _selectDate(context);
-                              picked.then((value) {
-                                setState(() {
-                                  selectedDate = value;
-                                });
-                              });
-                            },
-                            icon: const Icon(Icons.calendar_today),
-                            label: Text(''),
+                      InkWell(
+                        onTap: () {
+                          var picked = _selectDate(context);
+                          picked.then((value) {
+                            setState(() {
+                              selectedDate = value;
+                            });
+                          });
+                        },
+                        child: Container(
+                          height: 50,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black),
+                            borderRadius: BorderRadius.circular(25.0),
                           ),
-                        ],
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                DateFormat("dd-MM-yyyy").format(selectedDate),
+                                style: const TextStyle(fontSize: 18),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              const Icon(Icons.calendar_month),
+                            ],
+                          ),
+                        ),
                       ),
 
                       const SizedBox(
@@ -339,7 +352,9 @@ class _StockListState extends State<StockList> {
                       Product toSave = Product(
                           productName: name.text,
                           productCode: code.text,
-                          stockDate: date.text,
+                          stockDate: DateFormat("dd-MM-yyyy")
+                              .format(selectedDate)
+                              .toString(),
                           stockCount: int.parse(stock.text),
                           price: double.parse(price.text));
                       provider.saveProduct(toSave);

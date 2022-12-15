@@ -1,3 +1,4 @@
+import 'package:billingapp/model/product.dart';
 import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/provider/productprovider.dart';
 import 'package:billingapp/screens/salespage/salespayment.dart';
@@ -7,6 +8,8 @@ import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
 
 import '../../model/customer.dart';
+import '../../model/sales.dart';
+import '../../provider/salesprovider.dart';
 
 class NewSale extends StatefulWidget {
   String? option;
@@ -18,10 +21,19 @@ class NewSale extends StatefulWidget {
 }
 
 class _NewSaleState extends State<NewSale> {
+  List<Sales> datas = [];
+  List<Product> productList = [];
   @override
   Widget build(BuildContext context) {
     Cartprovider provider = Provider.of<Cartprovider>(context);
-
+    final provider2 = Provider.of<SalesProvider>(context);
+    final productProvider = Provider.of<ProductProvider>(context);
+    provider2.savedBillList.listen((event) {
+      datas = event;
+    });
+    productProvider.savedProductList.listen((event) {
+      productList = event;
+    });
     return Scaffold(
       appBar: AppBar(
         title: const Text('Select Products'),
@@ -43,10 +55,11 @@ class _NewSaleState extends State<NewSale> {
                         border: OutlineInputBorder(),
                         icon: Icon(Icons.search))),
                 suggestionsCallback: (pattern) async {
-                  var data =
-                      Provider.of<ProductProvider>(context, listen: false)
-                          .filterProduct(pattern);
-                  return await data;
+                  final callbackList = productList
+                      .where((element) =>
+                          element.productName!.toLowerCase().contains(pattern))
+                      .toList();
+                  return callbackList;
                 },
                 itemBuilder: (context, dynamic s) {
                   return ListTile(

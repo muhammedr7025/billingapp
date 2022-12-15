@@ -24,20 +24,12 @@ class ProductProvider with ChangeNotifier {
         stockCount: product.stockCount,
         stockDate: product.stockDate,
         uniqueId: const Uuid().v4());
-    _savedProduct.add(newProduct);
+
     db.saveProduct(newProduct);
     notifyListeners();
   }
 
   Future<void> editProduct(Product productOld, Product productNew) async {
-    final index = _savedProduct.indexWhere((element) => productOld == element);
-    _savedProduct[index] = Product(
-      productName: productNew.productName,
-      productCode: productNew.productCode,
-      price: productNew.price,
-      stockCount: productNew.stockCount,
-      stockDate: productNew.stockDate,
-    );
     db.editProducts(productNew, productOld.uniqueId!);
     notifyListeners();
   }
@@ -47,6 +39,8 @@ class ProductProvider with ChangeNotifier {
         .where(
             (element) => element.productName!.toLowerCase().contains(keyWord))
         .toList();
+    //
+    // db.filterProduct(keyWord, savedProductList);
     return filteredList;
   }
 

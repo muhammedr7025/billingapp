@@ -89,6 +89,7 @@ class StockItem extends StatelessWidget {
                           height: 5,
                         ),
                         TextFormField(
+                          readOnly: true,
                           controller: date,
                           keyboardType: TextInputType.datetime,
                           decoration: InputDecoration(
@@ -172,6 +173,7 @@ class StockItem extends StatelessWidget {
                       child: const Text("Submit"),
                       onPressed: () {
                         Product toSave = Product(
+                            uniqueId: product.uniqueId,
                             productName: name.text,
                             productCode: code.text,
                             stockDate: date.text,
@@ -207,7 +209,7 @@ class StockItem extends StatelessWidget {
                 width: 20,
               ),
               const Icon(
-                Icons.person,
+                Icons.category,
                 color: Colors.blueGrey,
                 size: 30,
               ),
