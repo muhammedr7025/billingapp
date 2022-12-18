@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:billingapp/provider/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
@@ -10,14 +12,17 @@ class CustomerProvider with ChangeNotifier {
     return db.getCustomers();
   }
 
-  void saveCustomer(Customer customer) {
+  Future<void> saveCustomer(Customer customer) async {
+    customer.credit ??= 0;
     final newCustomer = Customer(
         custName: customer.custName,
         credit: customer.credit,
         mobno: customer.mobno,
+        totalPurchasePrice: 0,
         uniqueId: const Uuid().v4());
     _savedCustomer.add(newCustomer);
     db.saveCustomer(newCustomer);
+
     notifyListeners();
   }
 
@@ -37,21 +42,26 @@ class CustomerProvider with ChangeNotifier {
     return filteredList;
   }
 
-  Customer findCustomer(uid) {
-    final index =
-        _savedCustomer.indexWhere((element) => uid == element.uniqueId);
-    return _savedCustomer[index];
+  Future<Customer> findCustomer(uid) async {
+    return await db.findCustomer(uid);
   }
 
   Future<void> newSaleAdded(
       {required Customer customer,
-      required double? newCredit,
+      required double newCredit,
       required double price}) async {
-    final index = _savedCustomer.indexWhere((element) => customer == element);
-    _savedCustomer[index].credit = (_savedCustomer[index].credit)! + newCredit!;
-    _savedCustomer[index].totalPurchasePrice =
-        (_savedCustomer[index].totalPurchasePrice!) + price;
-    _savedCustomer[index].totalSale++;
+    log('new credit => $newCredit');
+    double credit = (customer.credit ?? 0.0) + newCredit;
+    log('credit value => $credit');
+    double totalPurchasePrice = (customer.totalPurchasePrice ?? 0) + price;
+    int totalSale = customer.totalSale + 1;
+    final updatedCustomer = customer.copyWith(
+        credit: credit,
+        totalPurchasePrice: totalPurchasePrice,
+        totalSale: totalSale);
+    print('customer credit value =>${updatedCustomer.credit}');
+    print('customer credit value =>${updatedCustomer.totalPurchasePrice}');
+    db.saleCustomerUpdation(customer: updatedCustomer);
     notifyListeners();
   }
 

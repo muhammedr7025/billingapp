@@ -13,19 +13,20 @@ class Sales {
   double? credit;
   double? salePrice;
   double? discount;
-  Sales({
-    this.custId,
-    this.uniqueId,
-    this.custName,
-    this.billNo,
-    this.cartItems,
-    this.dateOfSale,
-    this.totalPrice,
-    this.byCash,
-    this.credit,
-    this.salePrice,
-    this.discount,
-  });
+  int? custNum;
+  Sales(
+      {this.custId,
+      this.uniqueId,
+      this.custName,
+      this.billNo,
+      this.cartItems,
+      this.dateOfSale,
+      this.totalPrice,
+      this.byCash,
+      this.credit,
+      this.salePrice,
+      this.discount,
+      this.custNum});
 
   Map<String, dynamic> toMap() {
     return {
@@ -40,27 +41,28 @@ class Sales {
       'credit': credit,
       'salePrice': salePrice,
       'discount': discount,
+      'custNum': custNum
     };
   }
 
   factory Sales.fromMap(Map<String, dynamic> map) {
     return Sales(
-      custId: map['custId'],
-      uniqueId: map['uniqueId'],
-      custName: map['custName'],
-      billNo: map['billNo'],
-      cartItems: map['cartItems'] != null
-          ? List<Cart>.from(map['cartItems']?.map((x) => Cart.fromMap(x)))
-          : null,
-      dateOfSale: map['dateOfSale'] != null
-          ? DateTime.fromMillisecondsSinceEpoch(map['dateOfSale'])
-          : null,
-      totalPrice: map['totalPrice']?.toDouble(),
-      byCash: map['byCash']?.toDouble(),
-      credit: map['credit']?.toDouble(),
-      salePrice: map['salePrice']?.toDouble(),
-      discount: map['discount']?.toDouble(),
-    );
+        custId: map['custId'],
+        uniqueId: map['uniqueId'],
+        custName: map['custName'],
+        billNo: map['billNo'],
+        cartItems: map['cartItems'] != null
+            ? List<Cart>.from(map['cartItems']?.map((x) => Cart.fromMap(x)))
+            : null,
+        dateOfSale: map['dateOfSale'] != null
+            ? DateTime.fromMillisecondsSinceEpoch(map['dateOfSale'])
+            : null,
+        totalPrice: map['totalPrice']?.toDouble(),
+        byCash: map['byCash']?.toDouble(),
+        credit: map['credit']?.toDouble(),
+        salePrice: map['salePrice']?.toDouble(),
+        discount: map['discount']?.toDouble(),
+        custNum: map['custNum']);
   }
 
   String toJson() => json.encode(toMap());
@@ -69,6 +71,6 @@ class Sales {
 
   @override
   String toString() {
-    return 'Sales(custId: $custId, uniqueId: $uniqueId, custName: $custName, billNo: $billNo, cartItems: $cartItems, dateOfSale: $dateOfSale, totalPrice: $totalPrice, byCash: $byCash, credit: $credit, salePrice: $salePrice, discount: $discount)';
+    return 'Sales(custId: $custId, uniqueId: $uniqueId, custName: $custName, billNo: $billNo, cartItems: $cartItems, dateOfSale: $dateOfSale, totalPrice: $totalPrice, byCash: $byCash, credit: $credit, salePrice: $salePrice, discount: $discount,custNum:$custNum)';
   }
 }

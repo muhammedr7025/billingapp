@@ -9,11 +9,14 @@ import 'package:pdf/widgets.dart' as pw;
 import 'package:printing/printing.dart';
 import 'package:pdf/pdf.dart';
 
+import '../../provider/firestore_service.dart';
+
 class Invoice extends StatelessWidget {
+  final db = FirestoreService();
   Sales bill;
   var cust;
-  Invoice({super.key, required this.bill, this.cust});
 
+  Invoice({super.key, required this.bill, this.cust});
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +29,7 @@ class Invoice extends StatelessWidget {
     pdf.addPage(pw.Page(build: (pw.Context context) {
       return pw.Column(children: [
         pw.Text(bill.custName!),
-        pw.Text(cust.toString()),
+        pw.Text(bill.custNum.toString()),
         pw.Text(bill.billNo.toString()),
         pw.Text(DateFormat("dd-MM-yyyy").format(bill.dateOfSale!)),
         pw.Table(border: pw.TableBorder.all(color: PdfColors.black), children: [

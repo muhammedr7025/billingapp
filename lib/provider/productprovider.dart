@@ -1,9 +1,6 @@
-import 'dart:developer';
-
 import 'package:billingapp/provider/firestore_service.dart';
 import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
-
 import '../model/product.dart';
 
 class ProductProvider with ChangeNotifier {
@@ -42,6 +39,10 @@ class ProductProvider with ChangeNotifier {
     //
     // db.filterProduct(keyWord, savedProductList);
     return filteredList;
+  }
+
+  Future<void> productQuantityUpdate(Product product, int quantity) async {
+    product.stockCount = product.stockCount ?? 0 - quantity;
   }
 
   void updateProductCount() {}

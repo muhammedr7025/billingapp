@@ -1,3 +1,4 @@
+import 'package:billingapp/model/bill_number.dart';
 import 'package:billingapp/model/customer.dart';
 import 'package:billingapp/model/product.dart';
 import 'package:billingapp/model/sales.dart';
@@ -21,6 +22,15 @@ class FirestoreService {
     return _db.collection('sales').snapshots().map((snapshot) => snapshot.docs
         .map((document) => Sales.fromMap(document.data()))
         .toList());
+  }
+
+  int getLastBillNumber() {
+    int billnumber = 0;
+    final getLastBillNumber =
+        _db.collection('bill').doc('bill').get().then((value) {
+      billnumber = value.data()!['billno'];
+    });
+    return billnumber;
   }
 
   Stream<List<Product>> getProducts() {
@@ -49,6 +59,12 @@ class FirestoreService {
         .set(customer.toMap());
   }
 
+  Future<Customer> findCustomer(String uid) async {
+    var response = await _db.collection('customers').doc(uid).get();
+
+    return Customer.fromMap(response.data() as Map<String, dynamic>);
+  }
+
   Stream<List<Customer>> getCustomers() {
     return _db.collection('customers').snapshots().map((snapshot) => snapshot
         .docs
@@ -62,5 +78,19 @@ class FirestoreService {
 
   Future editProducts(Product product, String uid) {
     return _db.collection('products').doc(uid).update(product.toMap());
+  }
+
+  Future saleCustomerUpdation({required Customer customer}) async {
+    return _db
+        .collection('customers')
+        .doc(customer.uniqueId)
+        .set(customer.toMap());
+  }
+
+  Future updateProductCount(Product product) async {
+    return _db
+        .collection('products')
+        .doc(product.uniqueId)
+        .update(product.toMap());
   }
 }

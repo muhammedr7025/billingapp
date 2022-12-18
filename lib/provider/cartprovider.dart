@@ -12,16 +12,17 @@ class Cartprovider with ChangeNotifier {
   double get totalAmoount => totalBillPrice;
   void addToCart(Product product, int itemCount) {
     final index = _cart.indexWhere((element) => product == element.item);
-
-    if (index == -1) {
-      _cart.add(
-          Cart(item: product, itemCount: itemCount, totalPrice: totalAmoount));
+    if (product.stockCount! > 0) {
+      if (index == -1) {
+        _cart.add(Cart(
+            item: product, itemCount: itemCount, totalPrice: totalAmoount));
+        notifyListeners();
+      } else {
+        _cart[index].itemCount = itemCount;
+        _cart[index].totalPrice = (_cart[index].item!.price!) * itemCount;
+      }
       notifyListeners();
-    } else {
-      _cart[index].itemCount = itemCount;
-      _cart[index].totalPrice = (_cart[index].item!.price!) * itemCount;
     }
-    notifyListeners();
   }
 
   void removeItem(Product product) {

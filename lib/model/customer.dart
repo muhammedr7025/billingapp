@@ -61,4 +61,26 @@ class Customer with ChangeNotifier {
   String toString() {
     return 'Customer(totalSale: $totalSale, totalPurchasePrice: $totalPurchasePrice, uniqueId: $uniqueId, custName: $custName, mobno: $mobno, credit: $credit, bills: $bills, cart: $cart)';
   }
+
+  Customer copyWith({
+    int? totalSale,
+    double? totalPurchasePrice,
+    String? uniqueId,
+    String? custName,
+    int? mobno,
+    double? credit,
+    List<Sales>? bills,
+    List<Cart>? cart,
+  }) {
+    return Customer(
+      totalSale: totalSale ?? this.totalSale,
+      totalPurchasePrice: totalPurchasePrice ?? this.totalPurchasePrice,
+      uniqueId: uniqueId ?? this.uniqueId,
+      custName: custName ?? this.custName,
+      mobno: mobno ?? this.mobno,
+      credit: credit ?? this.credit,
+      bills: bills ?? this.bills,
+      cart: cart ?? this.cart,
+    );
+  }
 }

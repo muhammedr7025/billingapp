@@ -1,14 +1,20 @@
-import 'package:billingapp/constant.dart';
-import 'package:billingapp/provider/cartprovider.dart';
-import 'package:billingapp/provider/customerprovider.dart';
-import 'package:billingapp/provider/salesprovider.dart';
-import 'package:billingapp/screens/homepage/homepage.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:provider/provider.dart';
 
+import 'package:billingapp/constant.dart';
+import 'package:billingapp/model/customer.dart';
+import 'package:billingapp/provider/cartprovider.dart';
+import 'package:billingapp/provider/customerprovider.dart';
+import 'package:billingapp/provider/salesprovider.dart';
+import 'package:billingapp/screens/homepage/homepage.dart';
+
 class SalesPayment extends StatefulWidget {
-  const SalesPayment({super.key});
+  const SalesPayment({
+    Key? key,
+  }) : super(key: key);
 
   @override
   State<SalesPayment> createState() => _SalesPaymentState();
@@ -26,6 +32,8 @@ class _SalesPaymentState extends State<SalesPayment> {
   double discount = 0;
   late String custname;
   late String uid;
+  List<Customer> customerList = [];
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
@@ -40,7 +48,9 @@ class _SalesPaymentState extends State<SalesPayment> {
   Widget build(BuildContext context) {
     Cartprovider provider = Provider.of<Cartprovider>(context);
     CustomerProvider providerCust = Provider.of<CustomerProvider>(context);
-
+    providerCust.getCustomerList().listen((event) {
+      customerList = event;
+    });
     return Scaffold(
         appBar: AppBar(
             backgroundColor: appBarColor, title: const Text('confirm order')),
@@ -75,9 +85,14 @@ class _SalesPaymentState extends State<SalesPayment> {
                               decoration:
                                   const InputDecoration(labelText: 'Customer')),
                           suggestionsCallback: (pattern) {
-                            return providerCust.filterCustomer(pattern);
+                            final callbackList = customerList
+                                .where((element) => element.custName!
+                                    .toLowerCase()
+                                    .contains(pattern))
+                                .toList();
+                            return customerList;
                           },
-                          itemBuilder: (context, suggestion) {
+                          itemBuilder: (context, Customer suggestion) {
                             return ListTile(
                               title: Text(suggestion.custName!),
                             );
@@ -88,7 +103,7 @@ class _SalesPaymentState extends State<SalesPayment> {
                           },
                           onSuggestionSelected: (suggestion) {
                             _typeAheadController.text = suggestion.custName!;
-                            uid = suggestion.uniqueId;
+                            uid = suggestion.uniqueId!;
                           },
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -180,26 +195,30 @@ class _SalesPaymentState extends State<SalesPayment> {
                   height: 20,
                 ),
                 ElevatedButton(
-                    onPressed: (() {
+                    onPressed: (() async {
+                      print(uid);
+                      var cust = await providerCust.findCustomer(uid);
+
                       Provider.of<SalesProvider>(context, listen: false)
                           .createSale(
-                        cartitem: provider.cartDetails,
-                        totalPrice: billAmount,
-                        discount: discount,
-                        credit: credit,
-                        finalPrice: amount,
-                        customer: providerCust.findCustomer(uid),
-                        byCash: amount - credit,
-                      );
+                              billNumber: lastbillnumber,
+                              cartitem: provider.cartDetails,
+                              totalPrice: billAmount,
+                              discount: discount,
+                              credit: credit,
+                              finalPrice: amount,
+                              customer: cust,
+                              byCash: amount - credit,
+                              custNum: cust.mobno!);
                       providerCust.newSaleAdded(
-                          customer: providerCust.findCustomer(
+                          customer: await providerCust.findCustomer(
                             uid,
                           ),
                           newCredit: credit,
                           price: amount);
 
                       Navigator.of(context).push(MaterialPageRoute(
-                          builder: ((context) => HomePage())));
+                          builder: ((context) => const HomePage())));
                     }),
                     child: const Text('submit'))
               ],

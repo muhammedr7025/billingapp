@@ -1,3 +1,6 @@
+import 'dart:developer';
+import 'package:billingapp/constant.dart';
+import 'package:billingapp/model/cart.dart';
 import 'package:billingapp/model/product.dart';
 import 'package:billingapp/provider/cartprovider.dart';
 import 'package:billingapp/provider/productprovider.dart';
@@ -34,6 +37,7 @@ class _NewSaleState extends State<NewSale> {
     productProvider.savedProductList.listen((event) {
       productList = event;
     });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Select Products'),
@@ -65,7 +69,7 @@ class _NewSaleState extends State<NewSale> {
                   return ListTile(
                     leading: const Icon(Icons.shopping_cart),
                     title: Text(s.productName),
-                    subtitle: Text(s.price.toString()),
+                    subtitle: getPriceOfItem(s),
                   );
                 },
                 onSuggestionSelected: (suggestion) {
@@ -79,6 +83,7 @@ class _NewSaleState extends State<NewSale> {
             itemCount: provider.cartDetails.length,
             itemBuilder: (context, index) {
               int counter = provider.cartDetails[index].itemCount!;
+              lastbillnumber = datas.length + 1;
               return Padding(
                 padding:
                     const EdgeInsets.only(left: 8.0, right: 8.0, bottom: 8.0),
@@ -87,20 +92,24 @@ class _NewSaleState extends State<NewSale> {
                   leading: Text((index + 1).toString()),
                   title: Text(
                       provider.cartDetails[index].item!.productName.toString()),
-                  subtitle: Text('\$${provider.cartDetails[index].totalPrice}'),
+                  subtitle: Text(getTotalPrice(provider.cartDetails[index])),
                   trailing: CartStepper(
                     value: counter,
                     //value: provider.cartDetails[index].itemCount,
                     didChangeCount: (value) {
-                      if (value <=
-                          provider.cartDetails[index].item!.stockCount!) {
-                        if (value > 0) {
-                          provider.addToCart(
-                              provider.cartDetails[index].item!, value);
-                        } else {
-                          provider
-                              .removeItem(provider.cartDetails[index].item!);
+                      if (provider.cartDetails[index].item!.price! > 0) {
+                        if (value <=
+                            provider.cartDetails[index].item!.stockCount!) {
+                          if (value > 0) {
+                            provider.addToCart(
+                                provider.cartDetails[index].item!, value);
+                          } else {
+                            provider
+                                .removeItem(provider.cartDetails[index].item!);
+                          }
                         }
+                      } else {
+                        value = 0;
                       }
                       counter = value;
                     },
@@ -128,5 +137,24 @@ class _NewSaleState extends State<NewSale> {
         ],
       ),
     );
+  }
+
+  String getTotalPrice(Cart cart) {
+    if (cart.totalPrice == 0) {
+      return '\u{20B9}${cart.item!.price}';
+    } else {
+      return '\u{20B9}${cart.totalPrice}';
+    }
+  }
+
+  Widget getPriceOfItem(Product product) {
+    if (product.stockCount! > 0) {
+      return Text(product.price.toString());
+    } else {
+      return const Text(
+        'Currently out of stock',
+        style: TextStyle(color: Colors.red),
+      );
+    }
   }
 }
